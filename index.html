@@ -55,6 +55,7 @@
 
     <section class="cta">
         <h2 class="cta-title">¿Listo para llevar tu negocio a Internet?</h2>
+        <p class="cta-aviso">Completar este formulario no pone tu página en marcha: es el primer paso para que te enviemos una cotización con precio, alcance y plazo. Te contactaremos con ella lo antes posible, por el medio que elijas.</p>
 
         <ol class="proceso">
             <li class="proceso-paso">
@@ -79,13 +80,35 @@
             </li>
             <li class="proceso-paso">
                 <span class="proceso-numero">05</span>
-                <h3 class="proceso-titulo">Publicamos</h3>
+                <h3 class="proceso-titulo">Publicamos 🚀</h3>
                 <p class="proceso-texto">Tu negocio queda oficialmente en Internet.</p>
             </li>
         </ol>
 
         <button type="button" class="cta-button" onclick="abrirFormulario()">Crea tu web con WebKrypto →</button>
     </section>
+
+    <footer class="footer">
+        <h2 class="footer-titulo">Síguenos en nuestras redes</h2>
+        <p class="footer-texto">¿Tienes un problema, una duda o quieres escribirnos directamente? Contáctanos por cualquiera de estos canales.</p>
+        <div class="footer-redes">
+            <!-- Reemplaza estos enlaces por tus redes y número reales -->
+            <a href="https://instagram.com/webkrypto" target="_blank" rel="noopener" aria-label="Instagram">
+                <img src="iconos/instagram.svg" alt="" class="footer-icono">
+            </a>
+            <a href="https://facebook.com/webkrypto" target="_blank" rel="noopener" aria-label="Facebook">
+                <img src="iconos/facebook.svg" alt="" class="footer-icono">
+            </a>
+            <a href="https://wa.me/56900000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <img src="iconos/whatsapp.svg" alt="" class="footer-icono">
+            </a>
+            <a href="mailto:contacto@webkrypto.cl" aria-label="Correo electrónico">
+                <img src="iconos/globe.svg" alt="" class="footer-icono">
+            </a>
+        </div>
+        <p class="footer-copy">© 2026 WebKrypto</p>
+    </footer>
+
     <div class="modal-overlay" id="modalFormulario">
         <div class="modal-box" role="dialog" aria-modal="true" aria-label="Formulario de inicio">
             <button type="button" class="modal-close" onclick="cerrarFormulario()" aria-label="Cerrar">×</button>
@@ -138,6 +161,14 @@
                     </label>
                     <label>Otros enlaces importantes
                         <input type="text" name="otros_enlaces">
+                    </label>
+                    <p class="form-pregunta">¿Por qué medio prefieres que te enviemos tu cotización? <span class="req">*</span></p>
+                    <label class="radio"><input type="radio" name="medio_cotizacion" value="WhatsApp" required> WhatsApp</label>
+                    <label class="radio"><input type="radio" name="medio_cotizacion" value="Correo electrónico" required> Correo electrónico</label>
+                    <label class="radio"><input type="radio" name="medio_cotizacion" value="Llamada telefónica" required> Llamada telefónica</label>
+                    <label class="radio-otro"><input type="radio" name="medio_cotizacion" value="Otro" required> Otro: <input type="text" name="medio_cotizacion_otro"></label>
+                    <label>¿Tienes un horario preferido para que te contactemos? (opcional)
+                        <input type="text" name="horario_preferido" placeholder="Ej: tardes después de las 18:00">
                     </label>
                 </fieldset>
 
