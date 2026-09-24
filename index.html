@@ -55,23 +55,57 @@
 
     <section class="cta">
         <h2 class="cta-title">¿Listo para llevar tu negocio a Internet?</h2>
-        <button type="button" class="cta-button" onclick="abrirFormulario()">Crea tu web con WebKrypton →</button>
+
+        <ol class="proceso">
+            <li class="proceso-paso">
+                <span class="proceso-numero">01</span>
+                <h3 class="proceso-titulo">Cuéntanos tu idea</h3>
+                <p class="proceso-texto">Completa nuestro formulario.</p>
+            </li>
+            <li class="proceso-paso">
+                <span class="proceso-numero">02</span>
+                <h3 class="proceso-titulo">Recibe tu cotización</h3>
+                <p class="proceso-texto">Te enviamos precio, alcance y plazo.</p>
+            </li>
+            <li class="proceso-paso">
+                <span class="proceso-numero">03</span>
+                <h3 class="proceso-titulo">Diseñamos tu web</h3>
+                <p class="proceso-texto">Construimos la página según lo acordado.</p>
+            </li>
+            <li class="proceso-paso">
+                <span class="proceso-numero">04</span>
+                <h3 class="proceso-titulo">Revisamos juntos</h3>
+                <p class="proceso-texto">Puedes solicitar las modificaciones incluidas.</p>
+            </li>
+            <li class="proceso-paso">
+                <span class="proceso-numero">05</span>
+                <h3 class="proceso-titulo">Publicamos 🚀</h3>
+                <p class="proceso-texto">Tu negocio queda oficialmente en Internet.</p>
+            </li>
+        </ol>
+
+        <button type="button" class="cta-button" onclick="abrirFormulario()">Crea tu web con WebKrypto →</button>
     </section>
     <div class="modal-overlay" id="modalFormulario">
-        <div class="modal-box">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-label="Formulario de inicio">
             <button type="button" class="modal-close" onclick="cerrarFormulario()" aria-label="Cerrar">×</button>
 
-            <form id="formInicio" class="form-inicio">
-                <h2 class="form-titulo">Formulario de inicio</h2>
-                <p class="form-subtitulo">Desarrollo de página web</p>
+            <form id="formInicio" class="form-inicio" novalidate>
+                <div class="form-header">
+                    <h2 class="form-titulo">Formulario de inicio</h2>
+                    <p class="form-subtitulo">Desarrollo de página web</p>
+                    <p class="form-aviso" id="avisoBorrador" hidden>Recuperamos lo que ya habías escrito. <button type="button" id="btnBorrar">Borrar y empezar de nuevo</button></p>
+                    <p class="progreso-texto" id="progresoTexto"></p>
+                    <div class="progreso-pista"><div class="progreso-barra" id="progresoBarra"></div></div>
+                </div>
 
-                <fieldset>
-                    <legend>1. Datos del negocio</legend>
-                    <label>Nombre del negocio
-                        <input type="text" name="nombre_negocio">
+                <fieldset class="paso">
+                    <legend>Datos del negocio</legend>
+                    <label>Nombre del negocio <span class="req">*</span>
+                        <input type="text" name="nombre_negocio" required>
                     </label>
-                    <label>Nombre del representante/contacto
-                        <input type="text" name="nombre_contacto">
+                    <label>Nombre del representante/contacto <span class="req">*</span>
+                        <input type="text" name="nombre_contacto" required>
                     </label>
                     <label>RUT (opcional)
                         <input type="text" name="rut">
@@ -82,19 +116,33 @@
                     <label>Ciudad / comuna
                         <input type="text" name="ciudad">
                     </label>
+                </fieldset>
+
+                <fieldset class="paso" data-paso="contacto">
+                    <legend>Contacto y redes</legend>
+                    <p class="form-nota">Necesitamos al menos un WhatsApp o un correo para contactarte <span class="req">*</span></p>
                     <label>Número de WhatsApp
-                        <input type="tel" name="whatsapp">
+                        <input type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="+56 9 1234 5678">
                     </label>
                     <label>Correo electrónico
-                        <input type="email" name="correo">
+                        <input type="email" name="correo" autocomplete="email">
                     </label>
-                    <label>Instagram / Facebook / otras redes
-                        <input type="text" name="redes">
+                    <label>Instagram
+                        <input type="text" name="instagram">
+                    </label>
+                    <label>Facebook
+                        <input type="text" name="facebook">
+                    </label>
+                    <label>TikTok
+                        <input type="text" name="tiktok">
+                    </label>
+                    <label>Otros enlaces importantes
+                        <input type="text" name="otros_enlaces">
                     </label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>2. Sobre el negocio</legend>
+                <fieldset class="paso">
+                    <legend>Sobre el negocio</legend>
                     <label>¿A qué se dedica tu negocio?
                         <textarea name="dedicacion" rows="2"></textarea>
                     </label>
@@ -111,8 +159,8 @@
                     <label class="check-otro"><input type="checkbox" name="objetivo" value="Otro"> Otro: <input type="text" name="objetivo_otro"></label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>3. Información que debe aparecer</legend>
+                <fieldset class="paso">
+                    <legend>Información que debe aparecer</legend>
                     <p class="form-pregunta">Marca las secciones que quieres:</p>
                     <label class="check"><input type="checkbox" name="secciones" value="Inicio"> Inicio</label>
                     <label class="check"><input type="checkbox" name="secciones" value="Nosotros"> Nosotros</label>
@@ -131,12 +179,15 @@
                     </label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>4. Diseño</legend>
+                <fieldset class="paso">
+                    <legend>Diseño</legend>
                     <p class="form-pregunta">¿Tienes un logo?</p>
                     <label class="radio"><input type="radio" name="tiene_logo" value="Sí"> Sí</label>
                     <label class="radio"><input type="radio" name="tiene_logo" value="No"> No</label>
-                    <p class="form-nota">Si tienes logo, puedes enviarlo junto con este formulario.</p>
+                    <label>Adjunta tu logo (opcional)
+                        <input type="file" name="logo" accept="image/*,.pdf,.ai,.eps">
+                    </label>
+                    <p class="form-nota">También puedes enviarlo después por WhatsApp o correo. Máx. 10 MB por archivo.</p>
                     <label>Colores que te gustaría utilizar
                         <input type="text" name="colores_si">
                     </label>
@@ -160,11 +211,14 @@
                     </label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>5. Fotografías y contenido</legend>
+                <fieldset class="paso">
+                    <legend>Fotografías y contenido</legend>
                     <p class="form-pregunta">¿Tienes fotografías propias del negocio/productos?</p>
                     <label class="radio"><input type="radio" name="tiene_fotos" value="Sí"> Sí</label>
                     <label class="radio"><input type="radio" name="tiene_fotos" value="No"> No</label>
+                    <label>Adjunta tus fotografías (opcional, puedes elegir varias)
+                        <input type="file" name="fotos" accept="image/*" multiple>
+                    </label>
                     <p class="form-pregunta">¿Tienes los textos que quieres utilizar?</p>
                     <label class="radio"><input type="radio" name="tiene_textos" value="Sí, los entregaré"> Sí, los entregaré</label>
                     <label class="radio"><input type="radio" name="tiene_textos" value="No, necesito ayuda para redactarlos"> No, necesito ayuda para redactarlos</label>
@@ -174,8 +228,8 @@
                     <label class="radio"><input type="radio" name="tiene_videos" value="No"> No</label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>6. Contacto y funciones</legend>
+                <fieldset class="paso">
+                    <legend>Contacto y funciones</legend>
                     <p class="form-pregunta">Marca lo que necesitas:</p>
                     <label class="check"><input type="checkbox" name="funciones" value="Botón de WhatsApp"> Botón de WhatsApp</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Formulario de contacto"> Formulario de contacto</label>
@@ -191,8 +245,9 @@
                     <label class="check-otro"><input type="checkbox" name="funciones" value="Otra"> Otra función: <input type="text" name="funciones_otra"></label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>7. Dominio</legend>
+                <fieldset class="paso">
+                    <legend>Dominio y hosting</legend>
+                    
                     <p class="form-pregunta">¿Ya tienes un dominio?</p>
                     <label class="radio"><input type="radio" name="tiene_dominio" value="Sí"> Sí</label>
                     <label class="radio"><input type="radio" name="tiene_dominio" value="No"> No</label>
@@ -203,10 +258,8 @@
                     <p class="form-pregunta">Si no tienes uno, ¿quieres que te ayude a elegir uno?</p>
                     <label class="radio"><input type="radio" name="ayuda_dominio" value="Sí"> Sí</label>
                     <label class="radio"><input type="radio" name="ayuda_dominio" value="No"> No</label>
-                </fieldset>
-
-                <fieldset>
-                    <legend>8. Hosting</legend>
+                
+                    
                     <p class="form-pregunta">¿Ya tienes hosting?</p>
                     <label class="radio"><input type="radio" name="tiene_hosting" value="Sí"> Sí</label>
                     <label class="radio"><input type="radio" name="tiene_hosting" value="No"> No</label>
@@ -216,40 +269,8 @@
                     </label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>9. Redes sociales y enlaces</legend>
-                    <label>Instagram
-                        <input type="text" name="instagram">
-                    </label>
-                    <label>Facebook
-                        <input type="text" name="facebook">
-                    </label>
-                    <label>TikTok
-                        <input type="text" name="tiktok">
-                    </label>
-                    <label>WhatsApp
-                        <input type="text" name="whatsapp_link">
-                    </label>
-                    <label>Otros enlaces importantes
-                        <input type="text" name="otros_enlaces">
-                    </label>
-                </fieldset>
-
-                <fieldset>
-                    <legend>10. Información legal</legend>
-                    <p class="form-pregunta">¿El negocio tiene RUT?</p>
-                    <label class="radio"><input type="radio" name="negocio_rut" value="Sí"> Sí</label>
-                    <label class="radio"><input type="radio" name="negocio_rut" value="No"> No</label>
-                    <p class="form-pregunta">¿Necesitas que la página incluya información legal proporcionada por tu negocio?</p>
-                    <label class="check"><input type="checkbox" name="legal" value="Política de privacidad"> Política de privacidad</label>
-                    <label class="check"><input type="checkbox" name="legal" value="Términos y condiciones"> Términos y condiciones</label>
-                    <label class="check"><input type="checkbox" name="legal" value="Política de cambios/devoluciones"> Política de cambios/devoluciones</label>
-                    <label class="check-otro"><input type="checkbox" name="legal" value="Otra"> Otra: <input type="text" name="legal_otra"></label>
-                    <p class="form-nota">La información legal debe ser proporcionada o revisada por el responsable del negocio. El desarrollo de la página no constituye asesoría jurídica.</p>
-                </fieldset>
-
-                <fieldset>
-                    <legend>11. Plazos</legend>
+                <fieldset class="paso">
+                    <legend>Plazos</legend>
                     <p class="form-pregunta">¿Tienes una fecha específica para publicar la página?</p>
                     <label class="radio"><input type="radio" name="fecha_publicacion" value="No"> No</label>
                     <label class="radio-otro"><input type="radio" name="fecha_publicacion" value="Sí"> Sí: <input type="date" name="fecha_publicacion_valor"></label>
@@ -258,8 +279,8 @@
                     </label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>12. Referencias</legend>
+                <fieldset class="paso">
+                    <legend>Referencias</legend>
                     <p class="form-pregunta">Escribe hasta 3 páginas que te gusten como referencia:</p>
                     <label>1.
                         <input type="text" name="referencia_1">
@@ -275,50 +296,215 @@
                     </label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>13. Información adicional</legend>
+                <fieldset class="paso">
+                    <legend>Información adicional</legend>
                     <label>¿Hay algo más que quieras que tenga la página?
                         <textarea name="info_adicional" rows="2"></textarea>
                     </label>
                 </fieldset>
 
-                <fieldset>
-                    <legend>14. Confirmación</legend>
+                <fieldset class="paso">
+                    <legend>Confirmación</legend>
                     <p class="form-nota">Al enviar este formulario confirmo que la información proporcionada es correcta y que entregaré los materiales necesarios para desarrollar la página.</p>
                     <label>Nombre
-                        <input type="text" name="confirmacion_nombre" required>
+                        <input type="text" name="confirmacion_nombre" required required>
                     </label>
                     <label>Fecha
-                        <input type="date" name="confirmacion_fecha" required>
+                        <input type="date" name="confirmacion_fecha" required required>
                     </label>
                 </fieldset>
 
-                <button type="submit" class="form-submit">Enviar formulario</button>
+                <div class="form-nav">
+                    <button type="button" class="form-atras" id="btnAtras">Atrás</button>
+                    <button type="button" class="form-siguiente" id="btnSiguiente">Siguiente</button>
+                    <button type="submit" class="form-submit" id="btnEnviar">Enviar formulario</button>
+                </div>
             </form>
         </div>
     </div>
 
     <script>
-        function abrirFormulario() {
-            document.getElementById('modalFormulario').classList.add('activo');
-            document.body.style.overflow = 'hidden';
+var STORAGE_KEY = 'webkrypto_form_v1';
+var ENDPOINT = ''; // Pega aquí la URL de tu servicio de formularios (Formspree, Web3Forms, etc.)
+var MAX_MB = 10;
+
+var modal = document.getElementById('modalFormulario');
+var form = document.getElementById('formInicio');
+var pasos = Array.from(form.querySelectorAll('.paso'));
+var btnAtras = document.getElementById('btnAtras');
+var btnSiguiente = document.getElementById('btnSiguiente');
+var btnEnviar = document.getElementById('btnEnviar');
+var barra = document.getElementById('progresoBarra');
+var textoPaso = document.getElementById('progresoTexto');
+var avisoBorrador = document.getElementById('avisoBorrador');
+var actual = 0;
+
+function abrirFormulario() {
+    modal.classList.add('activo');
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarFormulario() {
+    modal.classList.remove('activo');
+    document.body.style.overflow = '';
+}
+
+modal.addEventListener('click', function (e) {
+    if (e.target === modal) cerrarFormulario();
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('activo')) cerrarFormulario();
+});
+
+/* ---------- Wizard ---------- */
+function mostrarPaso(n) {
+    actual = n;
+    pasos.forEach(function (p, i) { p.classList.toggle('activo', i === n); });
+    textoPaso.textContent = 'Paso ' + (n + 1) + ' de ' + pasos.length;
+    barra.style.width = ((n + 1) / pasos.length * 100) + '%';
+    btnAtras.hidden = n === 0;
+    btnSiguiente.hidden = n === pasos.length - 1;
+    btnEnviar.hidden = n !== pasos.length - 1;
+    modal.querySelector('.modal-box').scrollTop = 0;
+    guardar();
+}
+
+/* ---------- Validación ---------- */
+function normalizarWhatsapp(v) {
+    var s = v.replace(/[\s\-().]/g, '');
+    var m = s.match(/^(?:\+?56)?(9\d{8})$/);
+    if (m) return '+56 9 ' + m[1].slice(1, 5) + ' ' + m[1].slice(5);
+    if (/^\+(?!56)\d{8,15}$/.test(s)) return s;
+    return null;
+}
+
+function validarContacto() {
+    var w = form.elements.whatsapp;
+    var c = form.elements.correo;
+    w.setCustomValidity('');
+    if (!w.value.trim() && !c.value.trim()) {
+        w.setCustomValidity('Ingresa un WhatsApp o un correo para poder contactarte.');
+    } else if (w.value.trim() && !normalizarWhatsapp(w.value.trim())) {
+        w.setCustomValidity('Ingresa un número válido, por ejemplo +56 9 1234 5678.');
+    }
+}
+
+function validarPaso(i) {
+    if (pasos[i].dataset.paso === 'contacto') validarContacto();
+    var campos = pasos[i].querySelectorAll('input, textarea');
+    for (var k = 0; k < campos.length; k++) {
+        if (!campos[k].checkValidity()) {
+            campos[k].reportValidity();
+            return false;
         }
+    }
+    return true;
+}
 
-        function cerrarFormulario() {
-            document.getElementById('modalFormulario').classList.remove('activo');
-            document.body.style.overflow = '';
+form.elements.whatsapp.addEventListener('input', validarContacto);
+form.elements.correo.addEventListener('input', validarContacto);
+form.elements.whatsapp.addEventListener('change', function () {
+    var n = normalizarWhatsapp(this.value.trim());
+    if (n) this.value = n;
+});
+
+form.querySelectorAll('input[type="file"]').forEach(function (f) {
+    f.addEventListener('change', function () {
+        var muyGrande = Array.from(f.files).some(function (a) { return a.size > MAX_MB * 1024 * 1024; });
+        f.setCustomValidity(muyGrande ? 'Cada archivo debe pesar menos de ' + MAX_MB + ' MB.' : '');
+        if (muyGrande) f.reportValidity();
+    });
+});
+
+btnSiguiente.addEventListener('click', function () {
+    if (validarPaso(actual)) mostrarPaso(actual + 1);
+});
+btnAtras.addEventListener('click', function () { mostrarPaso(actual - 1); });
+
+/* ---------- Borrador en localStorage ---------- */
+function guardar() {
+    try {
+        var d = { paso: actual, v: {} };
+        var hayDatos = false;
+        Array.from(form.elements).forEach(function (el) {
+            if (!el.name || el.type === 'file') return;
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                if (el.checked) { (d.v[el.name] = d.v[el.name] || []).push(el.value); hayDatos = true; }
+            } else {
+                d.v[el.name] = el.value;
+                if (el.value) hayDatos = true;
+            }
+        });
+        if (hayDatos) localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+        else localStorage.removeItem(STORAGE_KEY);
+    } catch (e) {}
+}
+
+function restaurar() {
+    try {
+        var d = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!d) return false;
+        Array.from(form.elements).forEach(function (el) {
+            if (!el.name || el.type === 'file' || !(el.name in d.v)) return;
+            if (el.type === 'checkbox' || el.type === 'radio') el.checked = d.v[el.name].indexOf(el.value) > -1;
+            else el.value = d.v[el.name];
+        });
+        actual = Math.min(d.paso || 0, pasos.length - 1);
+        return true;
+    } catch (e) { return false; }
+}
+
+function borrarBorrador() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+}
+
+form.addEventListener('input', guardar);
+form.addEventListener('change', guardar);
+
+document.getElementById('btnBorrar').addEventListener('click', function () {
+    form.reset();
+    avisoBorrador.hidden = true;
+    mostrarPaso(0);
+    borrarBorrador();
+});
+
+/* ---------- Envío ---------- */
+form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (actual < pasos.length - 1) { btnSiguiente.click(); return; }
+
+    for (var i = 0; i < pasos.length; i++) {
+        if (!validarPaso(i)) {
+            mostrarPaso(i);
+            validarPaso(i);
+            return;
         }
+    }
 
-        document.getElementById('modalFormulario').addEventListener('click', function (e) {
-            if (e.target === this) cerrarFormulario();
-        });
+    btnEnviar.disabled = true;
+    try {
+        if (ENDPOINT) {
+            var r = await fetch(ENDPOINT, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+        } else {
+            console.warn('ENDPOINT vacío: el formulario no se está enviando a ningún servidor.');
+        }
+        alert('¡Gracias! Recibimos tu información y te contactaremos pronto.');
+        form.reset();
+        avisoBorrador.hidden = true;
+        mostrarPaso(0);
+        borrarBorrador();
+        cerrarFormulario();
+    } catch (err) {
+        alert('No pudimos enviar el formulario. Inténtalo de nuevo o escríbenos por WhatsApp.');
+    } finally {
+        btnEnviar.disabled = false;
+    }
+});
 
-        document.getElementById('formInicio').addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('¡Gracias! Recibimos tu información y te contactaremos pronto.');
-            cerrarFormulario();
-            this.reset();
-        });
+avisoBorrador.hidden = !restaurar();
+mostrarPaso(actual);
     </script>
 
 </body>
