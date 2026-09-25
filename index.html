@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,17 +14,17 @@
     <nav class="navbar">
         <img src="logo/logo.png" alt="WebKrypto logo" class="navbar-logo">
         <ul>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#faq">Preguntas Frecuentes</a>
+            <a href="#contacto">Contacto</a>
         </ul>
     </nav>
 
-    <picture>
+    <picture id="inicio">
         <source media="(max-width: 480px)" srcset="banner/banner-movil.png">
         <source media="(max-width: 1024px)" srcset="banner/banner-tablet.png">
-        <img src="banner/banner-pc.png" alt="Hero Image" class="hero-image">
+        <img src="banner/banner-pc.png" alt="Imagen principal de WebKrypto" class="hero-image">
     </picture>
 
     <div class="container">
@@ -53,9 +53,59 @@
         </div>
     </div>
 
+    <section class="servicios" id="servicios">
+        <h2 class="servicios-titulo">Nuestros planes</h2>
+        <p class="servicios-subtitulo">Elige la opción que mejor se adapte a tu negocio. Estos precios no incluyen dominio ni hosting, y la cotización final se confirma después de completar el formulario.</p>
+
+        <div class="planes">
+            <div class="plan">
+                <h3 class="plan-nombre">Landing Page</h3>
+                <p class="plan-descripcion">Página web de una sola sección, diseñada para presentar tu negocio de forma profesional y ayudarte a conseguir nuevos clientes.</p>
+                <ul class="plan-lista">
+                    <li>Información del negocio y ubicación</li>
+                    <li>Productos o servicios</li>
+                    <li>Redes sociales y publicidad</li>
+                    <li>Botón de contacto directo por WhatsApp</li>
+                    <li>Se adapta a distintos tipos de negocio</li>
+                </ul>
+                <p class="plan-demora">Lista en pocos días.</p>
+                <span class="plan-precio">$35.990</span>
+            </div>
+
+            <div class="plan plan-destacado">
+                <span class="plan-badge">Mantenimiento gratis por 3 meses</span>
+                <h3 class="plan-nombre">Página Web Profesional</h3>
+                <p class="plan-descripcion">Una web completa para tu negocio con panel de administración propio, desde donde podrás gestionar tu contenido sin depender de nosotros.</p>
+                <ul class="plan-lista">
+                    <li>Panel de administración incluido</li>
+                    <li>Gestiona productos, imágenes y publicidad</li>
+                    <li>No necesitas conocimientos técnicos</li>
+                    <li>Actualiza redes sociales y más</li>
+                    <li>Tu web siempre actualizada</li>
+                </ul>
+                <p class="plan-demora">Entre 3 y 7 días, según el contenido.</p>
+                <span class="plan-precio">$59.990</span>
+            </div>
+
+            <div class="plan plan-mantenimiento" id="mantenimiento">
+                <h3 class="plan-nombre">Mantenimiento</h3>
+                <p class="plan-descripcion">Mantén tu web actualizada y al día: cambios en textos, imágenes, colores, productos, información del negocio y otros elementos.</p>
+                <ul class="plan-lista">
+                    <li>Ideal si prefieres que nosotros hagamos los cambios</li>
+                    <li>Solicita modificaciones por DM en Instagram</li>
+                    <li>Pago mensual por transferencia bancaria</li>
+                    <li>Te avisamos antes de que termine tu período</li>
+                </ul>
+                <span class="plan-precio plan-precio-mensual">$5.000<small> / mes</small></span>
+            </div>
+        </div>
+
+        <p class="servicios-nota">* Los precios no incluyen el dominio ni el hosting: son servicios externos, con renovación periódica, pagados por el cliente. Nosotros podemos ayudarte a contratarlos y configurarlos.</p>
+    </section>
+
     <section class="cta">
         <h2 class="cta-title">¿Listo para llevar tu negocio a Internet?</h2>
-        <p class="cta-aviso">Completar este formulario no pone tu página en marcha: es el primer paso para que te enviemos una cotización con precio, alcance y plazo. Te contactaremos con ella lo antes posible, por el medio que elijas.</p>
+        <p class="cta-aviso">Completar este formulario no pone tu página en marcha: es el primer paso para que te enviemos una cotización con precio, alcance y plazo. Te contactaremos con ella lo antes posible, por el medio que elijas. El pago se realiza únicamente por transferencia bancaria, una vez que el proyecto esté terminado.</p>
 
         <ol class="proceso">
             <li class="proceso-paso">
@@ -88,7 +138,71 @@
         <button type="button" class="cta-button" onclick="abrirFormulario()">Crea tu web con WebKrypto →</button>
     </section>
 
-    <footer class="footer">
+    <section class="faq" id="faq">
+        <h2 class="faq-titulo">Preguntas frecuentes</h2>
+
+        <div class="faq-grupo">
+            <h3 class="faq-categoria">Sobre los planes</h3>
+            <details class="faq-item">
+                <summary>¿Una Landing Page sirve para cualquier negocio?</summary>
+                <p>Sí, una Landing Page puede adaptarse a distintos tipos de negocios y servicios.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Puedo administrar mi Página Web Profesional yo mismo?</summary>
+                <p>Sí, pero el panel de administración está disponible únicamente en el plan Página Web Profesional. Desde ahí podrás gestionar productos, imágenes, publicidad, redes sociales y más. La Landing Page no incluye panel de administración: sus cambios se solicitan a través del plan de Mantenimiento.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Necesito conocimientos técnicos para usar el panel?</summary>
+                <p>No. El panel está diseñado para que puedas actualizar el contenido de tu web de forma sencilla.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Cuánto demora el desarrollo de mi página?</summary>
+                <p>Depende del tipo de página y de la cantidad de contenido. Una Landing Page sencilla puede estar lista en pocos días, y una web completa generalmente está lista en 3 a 7 días, siempre que recibamos toda la información necesaria.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Mi web funciona en celulares?</summary>
+                <p>Sí. Nuestras webs están diseñadas para adaptarse a celulares, tablets y computadores, ofreciendo una buena experiencia en distintos dispositivos.</p>
+            </details>
+        </div>
+
+        <div class="faq-grupo">
+            <h3 class="faq-categoria">Sobre mantenimiento y soporte</h3>
+            <details class="faq-item">
+                <summary>¿Qué incluye el mantenimiento?</summary>
+                <p>Incluye cambios en imágenes, textos, colores, productos y otros elementos de tu web. En el plan Profesional puedes realizar muchos de estos cambios tú mismo desde el panel de administración.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Cómo contrato el mantenimiento?</summary>
+                <p>Escríbenos por DM y te ayudaremos a contratarlo. El pago se realiza mes a mes mediante transferencia bancaria y te avisaremos antes de que termine tu período para que puedas renovarlo.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Cómo solicito modificaciones?</summary>
+                <p>Envíanos un DM por Instagram con los cambios que necesitas realizar en tu web y te responderemos lo antes posible para coordinarlos.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Qué pasa si mi web tiene un error?</summary>
+                <p>Si tu web presenta un error relacionado con su funcionamiento, lo solucionaremos aunque no tengas contratado un plan de mantenimiento.</p>
+            </details>
+        </div>
+
+        <div class="faq-grupo">
+            <h3 class="faq-categoria">Sobre pagos, dominio y hosting</h3>
+            <details class="faq-item">
+                <summary>¿Cómo se realiza el pago?</summary>
+                <p>El pago se realiza únicamente mediante transferencia bancaria, una vez que el proyecto está terminado y listo para ser publicado en internet. Así puedes revisar el resultado final antes de pagar.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Qué es el hosting y por qué es importante?</summary>
+                <p>El hosting permite que tu página esté publicada y disponible en internet las 24 horas, almacenando todos sus archivos y contenido. No está incluido en el precio de la web: lo paga el cliente, y nosotros podemos ayudarte a contratarlo y configurarlo.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Qué es el dominio?</summary>
+                <p>Es la dirección de tu página web, por ejemplo tunegocio.cl. Le da una imagen más profesional y confiable a tu negocio y permite que tus clientes te encuentren fácilmente. Se paga por separado y su renovación corre por cuenta del cliente.</p>
+            </details>
+        </div>
+    </section>
+
+    <footer class="footer" id="contacto">
         <h2 class="footer-titulo">Síguenos en nuestras redes</h2>
         <p class="footer-texto">¿Tienes un problema, una duda o quieres escribirnos directamente? Contáctanos por cualquiera de estos canales.</p>
         <div class="footer-redes">

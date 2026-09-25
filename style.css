@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -11,6 +15,9 @@ body, html {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 500;
 }
 
 .navbar-logo {
@@ -109,6 +116,14 @@ body, html {
     color: #4a4a4a;
     line-height: 1.5;
     margin: 0;
+}
+
+#inicio,
+#servicios,
+#mantenimiento,
+#faq,
+#contacto {
+    scroll-margin-top: 70px;
 }
 
 .cta {
@@ -563,4 +578,228 @@ body, html {
     color: #7fb8bd;
     font-size: 12px;
     margin: 0;
+}
+
+/* ---------- Servicios y precios ---------- */
+.servicios {
+    text-align: center;
+    padding: 60px 20px 40px;
+    font-family: Poppins, sans-serif;
+}
+
+.servicios-titulo {
+    color: #ffffff;
+    font-size: 28px;
+    margin: 0 0 12px 0;
+}
+
+.servicios-subtitulo {
+    color: #cfe9e9;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto 40px;
+}
+
+.planes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.plan {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 36px 24px 28px;
+    width: 300px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: Poppins, sans-serif;
+}
+
+.plan-destacado {
+    border: 2px solid #35dd14;
+}
+
+.plan-mantenimiento {
+    border: 2px dashed #1e9494;
+}
+
+.plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f0c14b;
+    color: #4a3200;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.plan-nombre {
+    color: #0d6e80;
+    font-size: 20px;
+    margin: 8px 0 10px 0;
+}
+
+.plan-descripcion {
+    color: #4a4a4a;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+}
+
+.plan-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+    flex: 1;
+}
+
+.plan-lista li {
+    color: #333333;
+    font-size: 13px;
+    line-height: 1.6;
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.plan-lista li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #1e9494;
+    font-weight: 700;
+}
+
+.plan-demora {
+    color: #777777;
+    font-size: 12px;
+    font-style: italic;
+    margin: 0 0 16px 0;
+}
+
+.plan-precio {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: #35dd14;
+    color: #0d3d1a;
+    font-weight: 700;
+    font-size: 22px;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.plan-precio-mensual small {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.servicios-nota {
+    color: #cfe9e9;
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 32px auto 0;
+}
+
+@media (max-width: 480px) {
+    .servicios-titulo {
+        font-size: 22px;
+    }
+
+    .plan {
+        width: 100%;
+        max-width: 340px;
+    }
+}
+
+/* ---------- Preguntas frecuentes ---------- */
+.faq {
+    padding: 20px 20px 80px;
+    font-family: Poppins, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-titulo {
+    color: #ffffff;
+    font-size: 28px;
+    text-align: center;
+    margin: 0 0 32px 0;
+}
+
+.faq-categoria {
+    color: #35dd14;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 32px 0 12px 0;
+}
+
+.faq-grupo:first-of-type .faq-categoria {
+    margin-top: 0;
+}
+
+.faq-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 4px 20px;
+}
+
+.faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    color: #0d6e80;
+    font-size: 14px;
+    padding: 14px 30px 14px 0;
+    position: relative;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    line-height: 1;
+    color: #1e9494;
+    transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.faq-item p {
+    color: #4a4a4a;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+@media (max-width: 480px) {
+    .faq-titulo {
+        font-size: 22px;
+    }
 }
