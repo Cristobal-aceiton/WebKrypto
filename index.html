@@ -481,6 +481,7 @@ navToggle.addEventListener('click', function () {
     var abierto = navMenu.classList.toggle('abierto');
     navToggle.classList.toggle('activo', abierto);
     navToggle.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    document.body.style.overflow = abierto ? 'hidden' : '';
 });
 
 navMenu.querySelectorAll('a').forEach(function (enlace) {
@@ -488,8 +489,56 @@ navMenu.querySelectorAll('a').forEach(function (enlace) {
         navMenu.classList.remove('abierto');
         navToggle.classList.remove('activo');
         navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
     });
 });
+
+/* ---------- Animaciones al hacer scroll ---------- */
+(function () {
+    var gruposConDesfase = [
+        '.container .card',
+        '.planes .plan',
+        '.proceso .proceso-paso',
+        '.faq-item'
+    ];
+    var titulosSinDesfase = [
+        '.servicios-titulo', '.servicios-subtitulo',
+        '.cta-title', '.cta-aviso',
+        '.faq-titulo'
+    ];
+
+    gruposConDesfase.forEach(function (selector) {
+        document.querySelectorAll(selector).forEach(function (el, i) {
+            el.classList.add('reveal');
+            el.style.transitionDelay = (i % 4) * 0.12 + 's';
+        });
+    });
+
+    titulosSinDesfase.forEach(function (selector) {
+        document.querySelectorAll(selector).forEach(function (el) {
+            el.classList.add('reveal');
+        });
+    });
+
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(function (el) {
+            observer.observe(el);
+        });
+    } else {
+        document.querySelectorAll('.reveal').forEach(function (el) {
+            el.classList.add('visible');
+        });
+    }
+})();
 
 var modal = document.getElementById('modalFormulario');
 var form = document.getElementById('formInicio');

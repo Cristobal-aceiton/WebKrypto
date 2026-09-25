@@ -97,33 +97,69 @@ body, html {
 
     .navbar-toggle {
         display: flex;
+        position: relative;
+        z-index: 700;
     }
 
     .navbar ul {
-        display: none;
+        display: flex;
         flex-direction: column;
-        align-items: stretch;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        position: fixed;
+        inset: 0;
         width: 100%;
+        height: 100vh;
+        margin: 0;
         flex: none;
-        order: 3;
-        background-color: #1a7f7f;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        background: linear-gradient(160deg, #0d6e80 0%, #146d7a 55%, #1e9494 100%);
+        border-top: none;
+        z-index: 600;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        visibility: hidden;
     }
 
     .navbar ul.abierto {
-        display: flex;
+        transform: translateX(0);
+        visibility: visible;
     }
 
     .navbar a {
-        width: 100%;
-        text-align: left;
-        padding: 14px 18px;
-        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        width: auto;
+        text-align: center;
+        padding: 16px 36px;
+        border-top: none;
         white-space: normal;
+        font-size: 20px;
+        border-radius: 14px;
+        opacity: 0;
+        transform: translateY(18px);
     }
+
+    .navbar ul.abierto a {
+        animation: navLinkIn 0.45s ease forwards;
+    }
+
+    .navbar ul.abierto a:nth-child(1) { animation-delay: 0.10s; }
+    .navbar ul.abierto a:nth-child(2) { animation-delay: 0.18s; }
+    .navbar ul.abierto a:nth-child(3) { animation-delay: 0.26s; }
+    .navbar ul.abierto a:nth-child(4) { animation-delay: 0.34s; }
 
     .navbar a:first-child {
         border-top: none;
+    }
+
+    .navbar a:hover {
+        background-color: rgba(255, 255, 255, 0.14);
+    }
+}
+
+@keyframes navLinkIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -859,5 +895,37 @@ body, html {
 @media (max-width: 480px) {
     .faq-titulo {
         font-size: 22px;
+    }
+}
+
+/* ---------- Animaciones al hacer scroll ---------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    will-change: opacity, transform;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .navbar ul,
+    .navbar a {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .navbar ul.abierto {
+        opacity: 1;
+        transform: none;
     }
 }
