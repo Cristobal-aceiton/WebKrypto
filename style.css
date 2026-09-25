@@ -183,20 +183,6 @@ body, html {
     position: relative;
 }
 
-.proceso-paso:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    margin-left: 4px;
-    width: 20px;
-    height: 20px;
-    transform: translateY(-50%);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2335dd14' d='M295 84c-16.4-16.4-16.4-43 0-59.3s43-16.4 59.3 0L488.9 159.3c16.4 16.4 16.4 43 0 59.3L354.3 353.3c-16.4 16.4-43 16.4-59.3 0s-16.4-43 0-59.3L338.7 251H42c-23.2 0-42-18.8-42-42s18.8-42 42-42h296.7L295 84z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
 
 .proceso-numero {
     font-family: Poppins, sans-serif;
@@ -233,16 +219,6 @@ body, html {
         max-width: 320px;
     }
 
-    .proceso-paso:not(:last-child)::after {
-        content: "";
-        position: static;
-        display: block;
-        width: 20px;
-        height: 20px;
-        margin: 10px auto 0;
-        transform: rotate(90deg);
-        background-position: center;
-    }
 }
 
 .modal-overlay {
