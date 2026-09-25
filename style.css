@@ -178,17 +178,19 @@ body, html {
     align-items: center;
     text-align: center;
     width: 180px;
-    padding: 0 12px;
+    padding: 0 24px;
     position: relative;
 }
 
 .proceso-paso:not(:last-child)::after {
     content: "→";
     position: absolute;
-    top: 14px;
-    right: -6px;
+    top: -6px;
+    right: -26px;
     color: #35dd14;
-    font-size: 18px;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1;
 }
 
 .proceso-numero {
@@ -230,6 +232,7 @@ body, html {
         content: "↓";
         position: static;
         display: block;
+        font-size: 40px;
         margin-top: 12px;
     }
 }
