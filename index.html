@@ -766,7 +766,8 @@ form.addEventListener('submit', async function (e) {
         borrarBorrador();
         cerrarFormulario();
     } catch (err) {
-        alert('No pudimos enviar el formulario. Inténtalo de nuevo o escríbenos por WhatsApp.');
+        var detalle = (err && (err.message || err.error_description || err.error || JSON.stringify(err))) || 'sin detalle';
+        alert('No pudimos enviar el formulario.\n\nDETALLE TÉCNICO (mándale esto a Claude):\n' + detalle);
     } finally {
         btnEnviar.disabled = false;
     }
