@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel WebKrypto</title>
+<link rel="icon" href="logo/logo.png">
+<style>
+:root{--bg:#f2f6f6;--panel:#ffffff;--text:#132326;--muted:#5f7477;--line:#e1e8e8;--brand:#0d6e80;--brand2:#1e9494;--chip:#eef5f5;}
+@media (prefers-color-scheme: dark){:root{--bg:#0f1a1c;--panel:#16262a;--text:#e8f1f1;--muted:#93a7aa;--line:#233436;--chip:#1c2e30;}}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+header{position:sticky;top:0;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;z-index:20;}
+header h1{font-size:18px;margin:0;}
+.btn{border:none;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;font-size:14px;}
+.btn-primary{background:#35dd14;color:#0d3d1a;}
+.btn-primary:hover{background:#2ec00f;}
+.btn-ghost{background:rgba(255,255,255,.15);color:#fff;}
+main{max-width:1100px;margin:0 auto;padding:20px;}
+#login{max-width:360px;margin:60px auto;background:var(--panel);border-radius:12px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+#login h2{color:var(--brand);margin-top:0;}
+#login label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 4px;}
+#login input{width:100%;padding:10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--text);}
+#login .error{color:#d93025;font-size:13px;margin-top:10px;min-height:16px;}
+#app{display:none;}
+#alertas{margin-bottom:20px;}
+.alerta{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border-left:4px solid #e2a300;border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:13px;}
+.alerta.vencido{border-left-color:#d93025;}
+.alerta b{display:block;font-size:14px;}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center;}
+input[type=search],select{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);font-size:14px;}
+.tabla-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:var(--panel);}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px;}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap;}
+tbody tr:hover{background:var(--chip);cursor:pointer;}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
+.b-pend{background:#fdecc8;color:#8a5a00;} .b-conc{background:#d7f5df;color:#146c34;}
+.b-noconc{background:#fbdada;color:#a11c11;} .b-canc{background:#e4e4e4;color:#555;}
+.b-pagpend{background:#fbdada;color:#a11c11;} .b-pagok{background:#d7f5df;color:#146c34;} .b-pagpar{background:#fdecc8;color:#8a5a00;}
+.origen{font-size:11px;color:var(--muted);}
+.vacio{padding:40px;text-align:center;color:var(--muted);}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:100;}
+.overlay.abierto{display:flex;}
+.modal{background:var(--panel);border-radius:12px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;padding:22px;}
+.modal h2{margin:0 0 16px;font-size:18px;color:var(--brand);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:520px){.grid2{grid-template-columns:1fr;}}
+.campo{margin-bottom:12px;}
+.campo label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px;}
+.campo input,.campo select,.campo textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--text);font-size:13px;font-family:inherit;}
+fieldset{border:1px solid var(--line);border-radius:8px;margin:0 0 14px;padding:12px;}
+legend{font-size:12px;font-weight:700;color:var(--brand2);padding:0 6px;}
+.check{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:8px;}
+.modal-acciones{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap;}
+.btn-secundario{background:var(--chip);color:var(--text);}
+.btn-peligro{background:#fbdada;color:#a11c11;}
+.adjuntos a{display:inline-block;margin:2px 8px 2px 0;font-size:12px;color:var(--brand);}
+details.crudo{margin-top:6px;font-size:12px;color:var(--muted);}
+details.crudo pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:8px;border-radius:6px;}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <h2>📊 Panel WebKrypto</h2>
+  <form id="formLogin">
+    <label>Correo</label><input type="email" id="loginCorreo" required autocomplete="email">
+    <label>Contraseña</label><input type="password" id="loginPass" required autocomplete="current-password">
+    <button type="submit" class="btn btn-primary" style="width:100%;margin-top:18px;">Entrar</button>
+    <div class="error" id="loginError"></div>
+  </form>
+</div>
+
+<div id="app">
+<header>
+ <h1>📊 Panel WebKrypto</h1>
+ <div style="display:flex;gap:10px;">
+   <button class="btn btn-ghost" id="btnActualizar">🔄 Actualizar</button>
+   <button class="btn btn-primary" id="btnNuevo">+ Nuevo cliente</button>
+   <button class="btn btn-ghost" id="btnSalir">Salir</button>
+ </div>
+</header>
+<main>
+ <div id="alertas"></div>
+ <div class="toolbar">
+   <input type="search" id="buscar" placeholder="Buscar cliente...">
+   <select id="filtroEstado">
+     <option value="">Todos los estados</option>
+     <option>Pendiente</option><option>Concretado</option><option>No concretado</option><option>Cancelado</option>
+   </select>
+ </div>
+ <div class="tabla-wrap">
+  <table>
+   <thead><tr><th>Negocio</th><th>Contacto</th><th>Plan</th><th>Estado</th><th>Pago</th><th>Próx. vencimiento</th><th>Origen</th></tr></thead>
+   <tbody id="filas"></tbody>
+  </table>
+  <div class="vacio" id="vacio" hidden>Aún no hay clientes registrados.</div>
+ </div>
+</main>
+</div>
+
+<div class="overlay" id="overlay">
+ <div class="modal">
+  <h2 id="modalTitulo">Nuevo cliente</h2>
+  <form id="form">
+   <fieldset>
+    <legend>Datos del cliente</legend>
+    <div class="grid2">
+     <div class="campo"><label>Negocio *</label><input name="nombre_negocio" required></div>
+     <div class="campo"><label>Contacto</label><input name="nombre_contacto"></div>
+     <div class="campo"><label>WhatsApp</label><input name="whatsapp"></div>
+     <div class="campo"><label>Correo</label><input type="email" name="correo"></div>
+    </div>
+   </fieldset>
+   <fieldset>
+    <legend>Trato</legend>
+    <div class="grid2">
+     <div class="campo"><label>Plan</label>
+       <select name="plan"><option>Por definir</option><option>Landing Page</option><option>Página Web Profesional</option><option>Mantenimiento</option><option>Otro</option></select>
+     </div>
+     <div class="campo"><label>Estado del trato</label>
+       <select name="estado"><option>Pendiente</option><option>Concretado</option><option>No concretado</option><option>Cancelado</option></select>
+     </div>
+     <div class="campo"><label>Monto total ($)</label><input type="number" name="monto_total" min="0"></div>
+     <div class="campo"><label>Estado de pago</label>
+       <select name="pago_estado"><option>Pendiente</option><option>Parcial</option><option>Pagado</option></select>
+     </div>
+     <div class="campo"><label>Monto pendiente ($)</label><input type="number" name="monto_pendiente" min="0"></div>
+    </div>
+   </fieldset>
+   <fieldset>
+    <legend>Mantención</legend>
+    <div class="check"><input type="checkbox" name="mantencion_activa" id="mantActiva"><label for="mantActiva">Mantención activa</label></div>
+    <div class="grid2">
+     <div class="campo"><label>Precio mensual ($)</label><input type="number" name="mantencion_precio" min="0"></div>
+     <div class="campo"><label>Próximo vencimiento</label><input type="date" name="mantencion_vencimiento"></div>
+    </div>
+   </fieldset>
+   <fieldset>
+    <legend>Hosting y dominio</legend>
+    <div class="grid2">
+     <div class="campo"><label>Proveedor hosting</label><input name="hosting_proveedor"></div>
+     <div class="campo"><label>Vencimiento hosting</label><input type="date" name="hosting_vencimiento"></div>
+     <div class="campo"><label>Dominio</label><input name="dominio_nombre"></div>
+     <div class="campo"><label>Vencimiento dominio</label><input type="date" name="dominio_vencimiento"></div>
+    </div>
+   </fieldset>
+   <div class="campo"><label>Notas</label><textarea name="notas" rows="3"></textarea></div>
+   <div class="campo adjuntos" id="cajaAdjuntos" hidden><label>Archivos adjuntos</label><div id="listaAdjuntos"></div></div>
+   <details class="crudo" id="cajaCrudo" hidden><summary>Ver respuestas originales del formulario</summary><pre id="formularioCrudo"></pre></details>
+   <div class="modal-acciones">
+    <button type="button" class="btn btn-peligro" id="btnEliminar" hidden>Eliminar</button>
+    <button type="button" class="btn btn-secundario" id="btnCancelar">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+   </div>
+  </form>
+ </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SUPABASE_URL = ''; // Pega aquí la URL de tu proyecto Supabase
+var SUPABASE_ANON_KEY = ''; // Pega aquí tu "anon public key"
+var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+var clienteEditando = null, clientes = [];
+var $ = function (s) { return document.querySelector(s); };
+var overlay = $('#overlay'), form = $('#form'), filas = $('#filas'), vacio = $('#vacio'), alertasEl = $('#alertas');
+
+/* ---------- Login ---------- */
+$('#formLogin').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  $('#loginError').textContent = '';
+  var r = await sb.auth.signInWithPassword({ email: $('#loginCorreo').value.trim(), password: $('#loginPass').value });
+  if (r.error) $('#loginError').textContent = 'No se pudo iniciar sesión: ' + r.error.message;
+});
+
+$('#btnSalir').addEventListener('click', function () { sb.auth.signOut(); });
+
+sb.auth.onAuthStateChange(function (evento, sesion) {
+  if (sesion) {
+    $('#login').style.display = 'none';
+    $('#app').style.display = 'block';
+    cargarClientes();
+  } else {
+    $('#login').style.display = 'block';
+    $('#app').style.display = 'none';
+  }
+});
+
+/* ---------- Modal ---------- */
+function abrirModal(cliente) {
+  clienteEditando = cliente ? cliente.id : null;
+  $('#modalTitulo').textContent = cliente ? 'Editar cliente' : 'Nuevo cliente';
+  $('#btnEliminar').hidden = !cliente;
+  form.reset();
+  $('#cajaAdjuntos').hidden = true; $('#cajaCrudo').hidden = true;
+
+  if (cliente) {
+    Object.keys(cliente).forEach(function (k) {
+      var el = form.elements[k];
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = !!cliente[k];
+      else el.value = cliente[k] == null ? '' : cliente[k];
+    });
+    if (cliente.archivos && Object.keys(cliente.archivos).length) {
+      var html = '';
+      Object.keys(cliente.archivos).forEach(function (campo) {
+        var v = cliente.archivos[campo];
+        var urls = Array.isArray(v) ? v : [v];
+        urls.forEach(function (u, i) { html += '<a href="' + u + '" target="_blank" rel="noopener">' + campo + (urls.length > 1 ? ' ' + (i + 1) : '') + '</a>'; });
+      });
+      $('#listaAdjuntos').innerHTML = html;
+      $('#cajaAdjuntos').hidden = false;
+    }
+    if (cliente.formulario && Object.keys(cliente.formulario).length) {
+      $('#formularioCrudo').textContent = JSON.stringify(cliente.formulario, null, 2);
+      $('#cajaCrudo').hidden = false;
+    }
+  }
+  overlay.classList.add('abierto');
+}
+function cerrarModal() { overlay.classList.remove('abierto'); clienteEditando = null; }
+$('#btnNuevo').addEventListener('click', function () { abrirModal(null); });
+$('#btnCancelar').addEventListener('click', cerrarModal);
+overlay.addEventListener('click', function (e) { if (e.target === overlay) cerrarModal(); });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('abierto')) cerrarModal(); });
+
+/* ---------- Guardar / eliminar ---------- */
+var CAMPOS_FORM = ['nombre_negocio', 'nombre_contacto', 'whatsapp', 'correo', 'plan', 'estado', 'monto_total', 'pago_estado', 'monto_pendiente', 'mantencion_activa', 'mantencion_precio', 'mantencion_vencimiento', 'hosting_proveedor', 'hosting_vencimiento', 'dominio_nombre', 'dominio_vencimiento', 'notas'];
+
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var datos = {};
+  CAMPOS_FORM.forEach(function (nombre) {
+    var el = form.elements[nombre];
+    if (!el) return;
+    datos[nombre] = el.type === 'checkbox' ? el.checked : (el.type === 'number' ? (el.value === '' ? 0 : Number(el.value)) : (el.value || null));
+  });
+  ['mantencion_vencimiento', 'hosting_vencimiento', 'dominio_vencimiento'].forEach(function (c) { if (datos[c] === '') datos[c] = null; });
+
+  try {
+    if (clienteEditando) {
+      var r1 = await sb.from('clientes').update(datos).eq('id', clienteEditando);
+      if (r1.error) throw r1.error;
+    } else {
+      var r2 = await sb.from('clientes').insert(Object.assign({ origen: 'manual' }, datos));
+      if (r2.error) throw r2.error;
+    }
+    cerrarModal();
+    cargarClientes();
+  } catch (err) { alert('No se pudo guardar: ' + (err && err.message ? err.message : err)); }
+});
+
+$('#btnEliminar').addEventListener('click', async function () {
+  if (!clienteEditando) return;
+  if (!confirm('¿Eliminar este cliente? Esta acción no se puede deshacer.')) return;
+  try {
+    var r = await sb.from('clientes').delete().eq('id', clienteEditando);
+    if (r.error) throw r.error;
+    cerrarModal();
+    cargarClientes();
+  } catch (err) { alert('No se pudo eliminar.'); }
+});
+
+/* ---------- Datos y render ---------- */
+function diasHasta(fechaStr) {
+  if (!fechaStr) return null;
+  var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  var f = new Date(fechaStr + 'T00:00:00');
+  return Math.round((f - hoy) / 86400000);
+}
+function badgeEstado(estado) {
+  var map = { Pendiente: 'b-pend', Concretado: 'b-conc', 'No concretado': 'b-noconc', Cancelado: 'b-canc' };
+  return '<span class="badge ' + (map[estado] || 'b-pend') + '">' + (estado || 'Pendiente') + '</span>';
+}
+function badgePago(p) {
+  var map = { Pendiente: 'b-pagpend', Parcial: 'b-pagpar', Pagado: 'b-pagok' };
+  return '<span class="badge ' + (map[p] || 'b-pagpend') + '">' + (p || 'Pendiente') + '</span>';
+}
+function proximoVencimiento(d) {
+  var items = [['Mantención', d.mantencion_vencimiento], ['Hosting', d.hosting_vencimiento], ['Dominio', d.dominio_vencimiento]]
+    .filter(function (x) { return x[1]; }).map(function (x) { return { tipo: x[0], f: x[1], dias: diasHasta(x[1]) }; })
+    .sort(function (a, b) { return a.dias - b.dias; });
+  return items[0] || null;
+}
+function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+function render() {
+  var q = $('#buscar').value.trim().toLowerCase();
+  var filtroEstado = $('#filtroEstado').value;
+  var visibles = clientes.filter(function (d) {
+    if (filtroEstado && d.estado !== filtroEstado) return false;
+    if (q && !((d.nombre_negocio || '') + ' ' + (d.nombre_contacto || '')).toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  vacio.hidden = clientes.length > 0;
+  filas.innerHTML = visibles.map(function (d) {
+    var prox = proximoVencimiento(d);
+    var proxTxt = prox ? (prox.tipo + ': ' + (prox.dias < 0 ? ('vencido hace ' + Math.abs(prox.dias) + 'd') : (prox.dias === 0 ? 'hoy' : 'en ' + prox.dias + 'd'))) : '—';
+    return '<tr data-id="' + d.id + '"><td>' + escapeHtml(d.nombre_negocio || '—') + '</td><td>' + escapeHtml(d.nombre_contacto || '—') + '</td><td>' + escapeHtml(d.plan || '—') + '</td><td>' + badgeEstado(d.estado) + '</td><td>' + badgePago(d.pago_estado) + '</td><td>' + proxTxt + '</td><td class="origen">' + (d.origen === 'formulario' ? '🌐 Web' : '✍️ Manual') + '</td></tr>';
+  }).join('');
+
+  filas.querySelectorAll('tr').forEach(function (tr) {
+    tr.addEventListener('click', function () {
+      var d = clientes.find(function (x) { return x.id === tr.dataset.id; });
+      if (d) abrirModal(d);
+    });
+  });
+  renderAlertas();
+}
+
+function renderAlertas() {
+  var items = [];
+  clientes.forEach(function (d) {
+    [['Mantención', d.mantencion_vencimiento], ['Hosting', d.hosting_vencimiento], ['Dominio', d.dominio_vencimiento]].forEach(function (par) {
+      if (!par[1]) return;
+      var dias = diasHasta(par[1]);
+      if (dias <= 30) items.push({ nombre: d.nombre_negocio || 'Cliente', tipo: par[0], dias: dias, f: par[1] });
+    });
+  });
+  items.sort(function (a, b) { return a.dias - b.dias; });
+  if (!items.length) { alertasEl.innerHTML = ''; return; }
+  alertasEl.innerHTML = items.slice(0, 8).map(function (i) {
+    var vencido = i.dias < 0;
+    var txt = vencido ? ('Vencido hace ' + Math.abs(i.dias) + ' día(s)') : (i.dias === 0 ? 'Vence hoy' : ('Vence en ' + i.dias + ' día(s)'));
+    return '<div class="alerta ' + (vencido ? 'vencido' : '') + '"><div><b>' + escapeHtml(i.nombre) + '</b>' + i.tipo + ' · ' + i.f + '</div><div>' + txt + '</div></div>';
+  }).join('');
+}
+
+async function cargarClientes() {
+  var r = await sb.from('clientes').select('*').order('nombre_negocio', { ascending: true }).limit(500);
+  if (r.error) { console.error(r.error); return; }
+  clientes = r.data || [];
+  render();
+}
+
+$('#buscar').addEventListener('input', render);
+$('#filtroEstado').addEventListener('change', render);
+$('#btnActualizar').addEventListener('click', cargarClientes);
+setInterval(function () { if ($('#app').style.display === 'block') cargarClientes(); }, 30000);
+
+sb.auth.getSession().then(function (r) {
+  if (r.data && r.data.session) { $('#login').style.display = 'none'; $('#app').style.display = 'block'; cargarClientes(); }
+});
+</script>
+</body>
+</html>

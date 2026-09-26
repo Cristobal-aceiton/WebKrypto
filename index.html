@@ -228,6 +228,10 @@
             <button type="button" class="modal-close" onclick="cerrarFormulario()" aria-label="Cerrar">×</button>
 
             <form id="formInicio" class="form-inicio" novalidate>
+                <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                    <label for="sitio_web">No llenar este campo</label>
+                    <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="form-header">
                     <h2 class="form-titulo">Formulario de inicio</h2>
                     <p class="form-subtitulo">Desarrollo de página web</p>
@@ -468,9 +472,11 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
 var STORAGE_KEY = 'webkrypto_form_v1';
-var ENDPOINT = ''; // Pega aquí la URL de tu servicio de formularios (Formspree, Web3Forms, etc.)
+var SUPABASE_URL = ''; // Pega aquí la URL de tu proyecto Supabase (ej: https://xxxx.supabase.co)
+var SUPABASE_ANON_KEY = ''; // Pega aquí tu "anon public key" de Supabase
 var MAX_MB = 10;
 
 /* ---------- Menú móvil ---------- */
@@ -681,6 +687,55 @@ document.getElementById('btnBorrar').addEventListener('click', function () {
     borrarBorrador();
 });
 
+/* ---------- Envío a Supabase ---------- */
+var CAMPOS_PRINCIPALES = ['nombre_negocio', 'nombre_contacto', 'whatsapp', 'correo'];
+
+async function enviarFormulario() {
+    var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    var formulario = {};
+    var camposArchivo = [];
+    Array.from(form.elements).forEach(function (el) {
+        if (!el.name) return;
+        if (el.type === 'file') { camposArchivo.push(el); return; }
+        if (el.type === 'checkbox') {
+            if (el.checked) {
+                formulario[el.name] = formulario[el.name] || [];
+                formulario[el.name].push(el.value);
+            }
+            return;
+        }
+        if (el.type === 'radio') {
+            if (el.checked) formulario[el.name] = el.value;
+            return;
+        }
+        formulario[el.name] = el.value;
+    });
+
+    var idNuevo = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(16).slice(2));
+    var archivos = {};
+
+    for (var i = 0; i < camposArchivo.length; i++) {
+        var el = camposArchivo[i];
+        if (!el.files || !el.files.length) continue;
+        var urls = [];
+        for (var j = 0; j < el.files.length; j++) {
+            var f = el.files[j];
+            var ruta = idNuevo + '/' + el.name + '-' + Date.now() + '-' + f.name;
+            var subida = await sb.storage.from('adjuntos').upload(ruta, f);
+            if (subida.error) throw subida.error;
+            urls.push(sb.storage.from('adjuntos').getPublicUrl(ruta).data.publicUrl);
+        }
+        archivos[el.name] = el.multiple ? urls : urls[0];
+    }
+
+    var fila = { id: idNuevo, formulario: formulario, archivos: archivos, origen: 'formulario' };
+    CAMPOS_PRINCIPALES.forEach(function (c) { fila[c] = formulario[c] || ''; });
+
+    var insercion = await sb.from('clientes').insert(fila);
+    if (insercion.error) throw insercion.error;
+}
+
 /* ---------- Envío ---------- */
 form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -696,11 +751,13 @@ form.addEventListener('submit', async function (e) {
 
     btnEnviar.disabled = true;
     try {
-        if (ENDPOINT) {
-            var r = await fetch(ENDPOINT, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-            if (!r.ok) throw new Error('HTTP ' + r.status);
+        var esBot = form.elements['sitio_web'] && form.elements['sitio_web'].value;
+        if (esBot) {
+            // Probablemente un bot: no guardamos nada, pero mostramos éxito para no delatar el filtro.
+        } else if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+            await enviarFormulario();
         } else {
-            console.warn('ENDPOINT vacío: el formulario no se está enviando a ningún servidor.');
+            console.warn('Config de Supabase vacía: el formulario no se está enviando a ningún servidor.');
         }
         alert('¡Gracias! Recibimos tu información y te contactaremos pronto.');
         form.reset();
