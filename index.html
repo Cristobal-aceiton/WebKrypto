@@ -90,7 +90,7 @@
                     <li>Tu web siempre actualizada</li>
                 </ul>
                 <p class="plan-demora">Entre 3 y 7 días, según el contenido.</p>
-                <span class="plan-precio">$59.990</span>
+                <span class="plan-precio">$49.990</span>
             </div>
 
             <div class="plan plan-mantenimiento" id="mantenimiento">
@@ -240,16 +240,13 @@
                     <div class="progreso-pista"><div class="progreso-barra" id="progresoBarra"></div></div>
                 </div>
 
-                <fieldset class="paso">
-                    <legend>Datos del negocio</legend>
+                <fieldset class="paso" data-paso="contacto">
+                    <legend>Datos y contacto</legend>
                     <label>Nombre del negocio <span class="req">*</span>
                         <input type="text" name="nombre_negocio" required>
                     </label>
                     <label>Nombre del representante/contacto <span class="req">*</span>
                         <input type="text" name="nombre_contacto" required>
-                    </label>
-                    <label>RUT (opcional)
-                        <input type="text" name="rut">
                     </label>
                     <label>Rubro del negocio
                         <input type="text" name="rubro">
@@ -257,10 +254,6 @@
                     <label>Ciudad / comuna
                         <input type="text" name="ciudad">
                     </label>
-                </fieldset>
-
-                <fieldset class="paso" data-paso="contacto">
-                    <legend>Contacto y redes</legend>
                     <p class="form-nota">Necesitamos al menos un WhatsApp o un correo para contactarte <span class="req">*</span></p>
                     <label>Número de WhatsApp
                         <input type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="+56 9 1234 5678">
@@ -268,17 +261,8 @@
                     <label>Correo electrónico
                         <input type="email" name="correo" autocomplete="email">
                     </label>
-                    <label>Instagram
-                        <input type="text" name="instagram">
-                    </label>
-                    <label>Facebook
-                        <input type="text" name="facebook">
-                    </label>
-                    <label>TikTok
-                        <input type="text" name="tiktok">
-                    </label>
-                    <label>Otros enlaces importantes
-                        <input type="text" name="otros_enlaces">
+                    <label>Redes sociales (opcional)
+                        <input type="text" name="redes_sociales" placeholder="Instagram, Facebook, TikTok...">
                     </label>
                     <p class="form-pregunta">¿Por qué medio prefieres que te enviemos tu cotización? <span class="req">*</span></p>
                     <label class="radio"><input type="radio" name="medio_cotizacion" value="WhatsApp" required> WhatsApp</label>
@@ -291,12 +275,9 @@
                 </fieldset>
 
                 <fieldset class="paso">
-                    <legend>Sobre el negocio</legend>
-                    <label>¿A qué se dedica tu negocio?
-                        <textarea name="dedicacion" rows="2"></textarea>
-                    </label>
-                    <label>¿Qué productos o servicios ofreces?
-                        <textarea name="productos_servicios" rows="2"></textarea>
+                    <legend>Tu negocio y tu página</legend>
+                    <label>Cuéntanos qué hace tu negocio y qué productos o servicios ofreces
+                        <textarea name="sobre_negocio" rows="3"></textarea>
                     </label>
                     <p class="form-pregunta">¿Cuál es el principal objetivo de la página?</p>
                     <label class="check"><input type="checkbox" name="objetivo" value="Conseguir clientes"> Conseguir clientes</label>
@@ -306,11 +287,7 @@
                     <label class="check"><input type="checkbox" name="objetivo" value="Vender productos"> Vender productos</label>
                     <label class="check"><input type="checkbox" name="objetivo" value="Mostrar información del negocio"> Mostrar información del negocio</label>
                     <label class="check-otro"><input type="checkbox" name="objetivo" value="Otro"> Otro: <input type="text" name="objetivo_otro"></label>
-                </fieldset>
-
-                <fieldset class="paso">
-                    <legend>Información que debe aparecer</legend>
-                    <p class="form-pregunta">Marca las secciones que quieres:</p>
+                    <p class="form-pregunta">Marca las secciones que quieres en tu página:</p>
                     <label class="check"><input type="checkbox" name="secciones" value="Inicio"> Inicio</label>
                     <label class="check"><input type="checkbox" name="secciones" value="Nosotros"> Nosotros</label>
                     <label class="check"><input type="checkbox" name="secciones" value="Servicios"> Servicios</label>
@@ -323,70 +300,10 @@
                     <label class="check"><input type="checkbox" name="secciones" value="Testimonios"> Testimonios</label>
                     <label class="check"><input type="checkbox" name="secciones" value="Blog / noticias"> Blog / noticias</label>
                     <label class="check-otro"><input type="checkbox" name="secciones" value="Otra"> Otra: <input type="text" name="secciones_otra"></label>
-                    <label>¿Qué información quieres que aparezca en la página?
-                        <textarea name="info_pagina" rows="2"></textarea>
-                    </label>
-                </fieldset>
-
-                <fieldset class="paso">
-                    <legend>Diseño</legend>
-                    <p class="form-pregunta">¿Tienes un logo?</p>
-                    <label class="radio"><input type="radio" name="tiene_logo" value="Sí"> Sí</label>
-                    <label class="radio"><input type="radio" name="tiene_logo" value="No"> No</label>
-                    <label>Adjunta tu logo (opcional)
-                        <input type="file" name="logo" accept="image/*,.pdf,.ai,.eps">
-                    </label>
-                    <p class="form-nota">También puedes enviarlo después por WhatsApp o correo. Máx. 10 MB por archivo.</p>
-                    <label>Colores que te gustaría utilizar
-                        <input type="text" name="colores_si">
-                    </label>
-                    <label>¿Hay algún color que NO quieras utilizar?
-                        <input type="text" name="colores_no">
-                    </label>
-                    <p class="form-pregunta">¿Qué estilo buscas?</p>
-                    <label class="check"><input type="checkbox" name="estilo" value="Moderno"> Moderno</label>
-                    <label class="check"><input type="checkbox" name="estilo" value="Minimalista"> Minimalista</label>
-                    <label class="check"><input type="checkbox" name="estilo" value="Elegante"> Elegante</label>
-                    <label class="check"><input type="checkbox" name="estilo" value="Profesional"> Profesional</label>
-                    <label class="check"><input type="checkbox" name="estilo" value="Juvenil"> Juvenil</label>
-                    <label class="check"><input type="checkbox" name="estilo" value="Oscuro"> Oscuro</label>
-                    <label class="check"><input type="checkbox" name="estilo" value="Colorido"> Colorido</label>
-                    <label class="check-otro"><input type="checkbox" name="estilo" value="Otro"> Otro: <input type="text" name="estilo_otro"></label>
-                    <label>¿Hay alguna página web que te guste como referencia? (URL o nombre)
-                        <input type="text" name="referencia_diseno">
-                    </label>
-                    <label>¿Qué te gusta de esa página?
-                        <textarea name="referencia_diseno_gusto" rows="2"></textarea>
-                    </label>
-                </fieldset>
-
-                <fieldset class="paso">
-                    <legend>Fotografías y contenido</legend>
-                    <p class="form-pregunta">¿Tienes fotografías propias del negocio/productos?</p>
-                    <label class="radio"><input type="radio" name="tiene_fotos" value="Sí"> Sí</label>
-                    <label class="radio"><input type="radio" name="tiene_fotos" value="No"> No</label>
-                    <label>Adjunta tus fotografías (opcional, puedes elegir varias)
-                        <input type="file" name="fotos" accept="image/*" multiple>
-                    </label>
-                    <p class="form-pregunta">¿Tienes los textos que quieres utilizar?</p>
-                    <label class="radio"><input type="radio" name="tiene_textos" value="Sí, los entregaré"> Sí, los entregaré</label>
-                    <label class="radio"><input type="radio" name="tiene_textos" value="No, necesito ayuda para redactarlos"> No, necesito ayuda para redactarlos</label>
-                    <label class="radio"><input type="radio" name="tiene_textos" value="Tengo parte del contenido"> Tengo parte del contenido</label>
-                    <p class="form-pregunta">¿Tienes videos para utilizar en la página?</p>
-                    <label class="radio"><input type="radio" name="tiene_videos" value="Sí"> Sí</label>
-                    <label class="radio"><input type="radio" name="tiene_videos" value="No"> No</label>
-                </fieldset>
-
-                <fieldset class="paso">
-                    <legend>Contacto y funciones</legend>
-                    <p class="form-pregunta">Marca lo que necesitas:</p>
+                    <p class="form-pregunta">¿Qué funciones necesitas?</p>
                     <label class="check"><input type="checkbox" name="funciones" value="Botón de WhatsApp"> Botón de WhatsApp</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Formulario de contacto"> Formulario de contacto</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Google Maps"> Google Maps</label>
-                    <label class="check"><input type="checkbox" name="funciones" value="Instagram"> Instagram</label>
-                    <label class="check"><input type="checkbox" name="funciones" value="Facebook"> Facebook</label>
-                    <label class="check"><input type="checkbox" name="funciones" value="TikTok"> TikTok</label>
-                    <label class="check"><input type="checkbox" name="funciones" value="Correo electrónico"> Correo electrónico</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Reservas"> Reservas</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Catálogo de productos"> Catálogo de productos</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Blog"> Blog</label>
@@ -395,8 +312,7 @@
                 </fieldset>
 
                 <fieldset class="paso">
-                    <legend>Dominio y hosting</legend>
-                    
+                    <legend>Detalles técnicos</legend>
                     <p class="form-pregunta">¿Ya tienes un dominio?</p>
                     <label class="radio"><input type="radio" name="tiene_dominio" value="Sí"> Sí</label>
                     <label class="radio"><input type="radio" name="tiene_dominio" value="No"> No</label>
@@ -404,64 +320,24 @@
                     <label>Si tienes uno, ¿cuál es?
                         <input type="text" name="dominio">
                     </label>
-                    <p class="form-pregunta">Si no tienes uno, ¿quieres que te ayude a elegir uno?</p>
-                    <label class="radio"><input type="radio" name="ayuda_dominio" value="Sí"> Sí</label>
-                    <label class="radio"><input type="radio" name="ayuda_dominio" value="No"> No</label>
-                
-                    
                     <p class="form-pregunta">¿Ya tienes hosting?</p>
                     <label class="radio"><input type="radio" name="tiene_hosting" value="Sí"> Sí</label>
                     <label class="radio"><input type="radio" name="tiene_hosting" value="No"> No</label>
                     <label class="radio"><input type="radio" name="tiene_hosting" value="No sé qué es hosting"> No sé qué es hosting</label>
-                    <label>Proveedor actual (si corresponde)
-                        <input type="text" name="proveedor_hosting">
-                    </label>
-                </fieldset>
-
-                <fieldset class="paso">
-                    <legend>Plazos</legend>
                     <p class="form-pregunta">¿Tienes una fecha específica para publicar la página?</p>
                     <label class="radio"><input type="radio" name="fecha_publicacion" value="No"> No</label>
                     <label class="radio-otro"><input type="radio" name="fecha_publicacion" value="Sí"> Sí: <input type="date" name="fecha_publicacion_valor"></label>
-                    <label>¿Existe algún evento o fecha importante relacionada con el lanzamiento?
-                        <input type="text" name="evento_lanzamiento">
-                    </label>
-                </fieldset>
-
-                <fieldset class="paso">
-                    <legend>Referencias</legend>
-                    <p class="form-pregunta">Escribe hasta 3 páginas que te gusten como referencia:</p>
-                    <label>1.
-                        <input type="text" name="referencia_1">
-                    </label>
-                    <label>2.
-                        <input type="text" name="referencia_2">
-                    </label>
-                    <label>3.
-                        <input type="text" name="referencia_3">
-                    </label>
-                    <label>¿Qué elementos te gustaría tomar como inspiración?
-                        <textarea name="inspiracion" rows="2"></textarea>
-                    </label>
-                </fieldset>
-
-                <fieldset class="paso">
-                    <legend>Información adicional</legend>
-                    <label>¿Hay algo más que quieras que tenga la página?
-                        <textarea name="info_adicional" rows="2"></textarea>
-                    </label>
                 </fieldset>
 
                 <fieldset class="paso">
                     <legend>Confirmación</legend>
+                    <label>¿Algo más que quieras contarnos? (logo, fotos, colores, referencias de diseño, etc. — puedes enviarlos después por WhatsApp o correo)
+                        <textarea name="info_adicional" rows="2"></textarea>
+                    </label>
                     <p class="form-nota">Al enviar este formulario confirmo que la información proporcionada es correcta y que entregaré los materiales necesarios para desarrollar la página.</p>
-                    <label>Nombre
-                        <input type="text" name="confirmacion_nombre" required required>
-                    </label>
-                    <label>Fecha
-                        <input type="date" name="confirmacion_fecha" required required>
-                    </label>
+                    <label class="check"><input type="checkbox" name="confirmacion" value="Sí" required> Confirmo que la información entregada es correcta.</label>
                 </fieldset>
+
 
                 <div class="form-nav">
                     <button type="button" class="form-atras" id="btnAtras">Atrás</button>

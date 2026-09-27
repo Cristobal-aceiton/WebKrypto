@@ -5,11 +5,11 @@ html {
 body, html {
     margin: 0;
     padding: 0;
-    background-color: #0d6e80;
+    background-color: #0b2638;
 }
 
 .navbar {
-    background-color: #1e9494;
+    background-color: #0b2638;
     display: flex;
     flex-direction: row;       
     justify-content: space-between;
@@ -234,7 +234,7 @@ body, html {
 
 .cta-button {
     display: inline-block;
-    background-color: #35dd14;
+    background-color: #11d690;
     color: #0d3d1a;
     font-weight: 600;
     font-size: 16px;
@@ -245,7 +245,7 @@ body, html {
 }
 
 .cta-button:hover {
-    background-color: #2ec00f;
+    background-color: #02ff23;
     transform: translateY(-2px);
 }
 
@@ -297,7 +297,7 @@ body, html {
     font-family: Poppins, sans-serif;
     font-weight: 700;
     font-size: 13px;
-    color: #35dd14;
+    color: #11d690;
     letter-spacing: 0.04em;
     margin-bottom: 8px;
 }
@@ -719,7 +719,7 @@ body, html {
 }
 
 .plan-destacado {
-    border: 2px solid #35dd14;
+    border: 2px solid #11d690;
 }
 
 .plan-mantenimiento {
@@ -789,7 +789,7 @@ body, html {
 .plan-precio {
     display: inline-block;
     align-self: flex-start;
-    background-color: #35dd14;
+    background-color: #11d690;
     color: #0d3d1a;
     font-weight: 700;
     font-size: 22px;
@@ -837,7 +837,7 @@ body, html {
 }
 
 .faq-categoria {
-    color: #35dd14;
+    color: #11d690;
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
