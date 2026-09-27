@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebKrypto</title>
+    <title>WebKrypto — Páginas web para tu negocio</title>
+    <meta name="description" content="Creamos páginas web profesionales para tu negocio en Chile: landing pages, sitios con panel de administración propio y mantenimiento web. Cotiza gratis en minutos.">
+
+    <!-- Open Graph (vista previa al compartir en WhatsApp, Instagram, Facebook, etc.) -->
+    <!-- IMPORTANTE: reemplaza "https://TU-DOMINIO-AQUI/" por tu dominio real si es distinto -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="WebKrypto — Páginas web para tu negocio">
+    <meta property="og:description" content="Convierte visitantes en clientes con una web profesional. Cotiza tu página web hoy, sin compromiso.">
+    <meta property="og:image" content="https://TU-DOMINIO-AQUI/banner/banner-pc.png">
+    <meta property="og:url" content="https://TU-DOMINIO-AQUI/">
+    <meta property="og:locale" content="es_CL">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WebKrypto — Páginas web para tu negocio">
+    <meta name="twitter:description" content="Convierte visitantes en clientes con una web profesional. Cotiza tu página web hoy, sin compromiso.">
+    <meta name="twitter:image" content="https://TU-DOMINIO-AQUI/banner/banner-pc.png">
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="logo/logo.png">
 </head>
 <body>
@@ -35,9 +51,9 @@
                 <img src="banner/banner-pc.png" alt="Imagen principal de WebKrypto" class="hero-image">
             </picture>
             <picture class="hero-slide">
-                <source media="(max-width: 480px)" srcset="banner/banner-movil-2.png">
-                <source media="(max-width: 1024px)" srcset="banner/banner-tablet-2.png">
-                <img src="banner/banner-pc-2.png" alt="Responderemos tus dudas por Instagram @web_krypto" class="hero-image">
+                <source media="(max-width: 480px)" srcset="banner/banner-movil-2.jpg">
+                <source media="(max-width: 1024px)" srcset="banner/banner-tablet-2.jpg">
+                <img src="banner/banner-pc-2.jpg" alt="Responderemos tus dudas por Instagram @web_krypto" class="hero-image">
             </picture>
         </div>
 
@@ -49,25 +65,25 @@
 
     <div class="container">
         <div class="card">
-            <img src="iconos/rocket-lunch.svg" alt="Icono de cohete" class="card-icon">
+            <img src="iconos/rocket-lunch.svg" alt="Icono de cohete" class="card-icon" loading="lazy">
             <h2 class="card-title">Aumenta tus ingresos</h2>
             <p class="card-text">Convierte visitantes en nuevos clientes con una web pensada para vender.</p>
         </div>
 
         <div class="card">
-            <img src="iconos/chart-histogram.svg" alt="Icono de estadistica" class="card-icon">
+            <img src="iconos/chart-histogram.svg" alt="Icono de estadistica" class="card-icon" loading="lazy">
             <h2 class="card-title">Haz crecer tu negocio</h2>
             <p class="card-text">Lleva tu negocio a internet y llega a personas que todavía no te conocen.</p>
         </div>
 
         <div class="card">
-            <img src="iconos/user.svg" alt="Icono de usuario" class="card-icon">
+            <img src="iconos/user.svg" alt="Icono de usuario" class="card-icon" loading="lazy">
             <h2 class="card-title">Consigue nuevos clientes</h2>
             <p class="card-text">Una presencia profesional puede ayudarte a generar más consultas y oportunidades.</p>
         </div>
 
         <div class="card">
-            <img src="iconos/whatsapp.svg" alt="Icono de WhatsApp" class="card-icon">
+            <img src="iconos/whatsapp.svg" alt="Icono de WhatsApp" class="card-icon" loading="lazy">
             <h2 class="card-title">Facilita el contacto</h2>
             <p class="card-text">Botones de WhatsApp, formularios y otras formas de contacto para que hablar contigo sea sencillo.</p>
         </div>
@@ -228,14 +244,21 @@
         <div class="footer-redes">
             <!-- Reemplaza estos enlaces por tus redes y número reales -->
             <a href="https://www.instagram.com/web_krypto?stkn=YzI0cHBpcjc2MnAw" target="_blank" rel="noopener" aria-label="Instagram">
-                <img src="iconos/instagram.svg" alt="" class="footer-icono">
+                <img src="iconos/instagram.svg" alt="" class="footer-icono" loading="lazy">
             </a>
-            <a href="mailto:contacto@webkrypto.cl" aria-label="Correo electrónico">
-                <img src="iconos/globe.svg" alt="" class="footer-icono">
+            <a href="mailto:WebKrypto@proton.me" aria-label="Correo electrónico">
+                <img src="iconos/globe.svg" alt="" class="footer-icono" loading="lazy">
             </a>
         </div>
         <p class="footer-copy">© 2026 WebKrypto</p>
     </footer>
+
+    <!-- Botón flotante de contacto -->
+    <div class="flotantes-contacto">
+        <a href="https://t.me/Web_Krypto" target="_blank" rel="noopener" class="flotante flotante-telegram" aria-label="Escríbenos por Telegram">
+            <img src="iconos/telegram.svg" alt="" loading="lazy">
+        </a>
+    </div>
 
     <div class="modal-overlay" id="modalFormulario">
         <div class="modal-box" role="dialog" aria-modal="true" aria-label="Formulario de inicio">
@@ -399,7 +422,7 @@ navMenu.querySelectorAll('a').forEach(function (enlace) {
     var puntosCont = document.getElementById('heroPuntos');
     var btnAnterior = document.getElementById('heroAnterior');
     var btnSiguiente = document.getElementById('heroSiguiente');
-    var INTERVALO_MS = 5000;
+    var INTERVALO_MS = 8000;
     var indice = 0;
     var temporizador = null;
 
