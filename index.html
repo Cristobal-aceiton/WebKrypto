@@ -27,11 +27,25 @@
         </ul>
     </nav>
 
-    <picture id="inicio">
-        <source media="(max-width: 480px)" srcset="banner/banner-movil.png">
-        <source media="(max-width: 1024px)" srcset="banner/banner-tablet.png">
-        <img src="banner/banner-pc.png" alt="Imagen principal de WebKrypto" class="hero-image">
-    </picture>
+    <section class="hero-carousel" id="inicio" aria-roledescription="carrusel" aria-label="Banners destacados">
+        <div class="hero-carousel-track">
+            <picture class="hero-slide">
+                <source media="(max-width: 480px)" srcset="banner/banner-movil.png">
+                <source media="(max-width: 1024px)" srcset="banner/banner-tablet.png">
+                <img src="banner/banner-pc.png" alt="Imagen principal de WebKrypto" class="hero-image">
+            </picture>
+            <picture class="hero-slide">
+                <source media="(max-width: 480px)" srcset="banner/banner-movil-2.png">
+                <source media="(max-width: 1024px)" srcset="banner/banner-tablet-2.png">
+                <img src="banner/banner-pc-2.png" alt="Responderemos tus dudas por Instagram @web_krypto" class="hero-image">
+            </picture>
+        </div>
+
+        <button type="button" class="hero-flecha hero-flecha-izq" id="heroAnterior" aria-label="Banner anterior">‹</button>
+        <button type="button" class="hero-flecha hero-flecha-der" id="heroSiguiente" aria-label="Banner siguiente">›</button>
+
+        <div class="hero-puntos" id="heroPuntos"></div>
+    </section>
 
     <div class="container">
         <div class="card">
@@ -374,6 +388,61 @@ navMenu.querySelectorAll('a').forEach(function (enlace) {
         document.body.style.overflow = '';
     });
 });
+
+/* ---------- Carrusel de banners ---------- */
+(function () {
+    var carrusel = document.querySelector('.hero-carousel');
+    if (!carrusel) return;
+
+    var track = carrusel.querySelector('.hero-carousel-track');
+    var slides = Array.from(carrusel.querySelectorAll('.hero-slide'));
+    var puntosCont = document.getElementById('heroPuntos');
+    var btnAnterior = document.getElementById('heroAnterior');
+    var btnSiguiente = document.getElementById('heroSiguiente');
+    var INTERVALO_MS = 5000;
+    var indice = 0;
+    var temporizador = null;
+
+    if (slides.length < 2) {
+        if (btnAnterior) btnAnterior.hidden = true;
+        if (btnSiguiente) btnSiguiente.hidden = true;
+        return;
+    }
+
+    slides.forEach(function (_, i) {
+        var punto = document.createElement('button');
+        punto.type = 'button';
+        punto.className = 'hero-punto' + (i === 0 ? ' activo' : '');
+        punto.setAttribute('aria-label', 'Ir al banner ' + (i + 1));
+        punto.addEventListener('click', function () {
+            irA(i);
+            reiniciarAuto();
+        });
+        puntosCont.appendChild(punto);
+    });
+    var puntos = Array.from(puntosCont.children);
+
+    function irA(i) {
+        indice = (i + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (indice * 100) + '%)';
+        puntos.forEach(function (p, j) { p.classList.toggle('activo', j === indice); });
+    }
+
+    function siguiente() { irA(indice + 1); }
+    function anterior() { irA(indice - 1); }
+
+    function iniciarAuto() { temporizador = setInterval(siguiente, INTERVALO_MS); }
+    function detenerAuto() { clearInterval(temporizador); }
+    function reiniciarAuto() { detenerAuto(); iniciarAuto(); }
+
+    btnSiguiente.addEventListener('click', function () { siguiente(); reiniciarAuto(); });
+    btnAnterior.addEventListener('click', function () { anterior(); reiniciarAuto(); });
+
+    carrusel.addEventListener('mouseenter', detenerAuto);
+    carrusel.addEventListener('mouseleave', iniciarAuto);
+
+    iniciarAuto();
+})();
 
 /* ---------- Animaciones al hacer scroll ---------- */
 (function () {
