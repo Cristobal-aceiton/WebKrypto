@@ -587,6 +587,12 @@ body, html {
 
 .modal-box {
     padding-top: 0;
+    /* Sin padding abajo: si no, la barra "sticky" queda flotando 32px arriba
+       del borde y se ven las preguntas por debajo de los botones. */
+    padding-bottom: 0;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overscroll-behavior: contain;
 }
 
 .modal-close {
@@ -675,7 +681,8 @@ body, html {
     background-color: #ffffff;
     border-top: 2px solid #e0f2f2;
     margin: 12px -28px 0;
-    padding: 14px 28px 20px;
+    padding: 14px 28px calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 3;
 }
 
 .form-nav button {
@@ -1174,4 +1181,22 @@ body, html {
 
 .legal-volver:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal-box {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .form-nav {
+        margin-left: -18px;
+        margin-right: -18px;
+        padding-left: 18px;
+        padding-right: 18px;
+    }
 }

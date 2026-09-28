@@ -51,7 +51,7 @@ create policy "cualquiera_puede_insertar"
     and coalesce(notas_historial, '[]'::jsonb) = '[]'::jsonb
   );
 
--- 3) Límite de envíos por IP (anti-spam / anti-inundación): máx. 8 por hora.
+-- 3) Límite de envíos por IP (anti-spam / anti-inundación): máx. 5 por hora y 15 por día.
 create table if not exists public.intentos_formulario (
   ip text not null,
   creado timestamptz not null default now()
@@ -79,8 +79,13 @@ begin
   v_ip := trim(split_part(coalesce(nullif(current_setting('request.headers', true), '')::json ->> 'x-forwarded-for', 'desconocida'), ',', 1));
 
   delete from public.intentos_formulario where creado < now() - interval '1 day';
+  -- Máx. 5 envíos por hora y 15 por día desde la misma IP (ajusta los números si quieres).
   select count(*) into v_n from public.intentos_formulario where ip = v_ip and creado > now() - interval '1 hour';
-  if v_n >= 8 then
+  if v_n >= 5 then
+    raise exception 'Demasiados envíos. Intenta de nuevo más tarde.' using errcode = 'P0001';
+  end if;
+  select count(*) into v_n from public.intentos_formulario where ip = v_ip and creado > now() - interval '1 day';
+  if v_n >= 15 then
     raise exception 'Demasiados envíos. Intenta de nuevo más tarde.' using errcode = 'P0001';
   end if;
   insert into public.intentos_formulario (ip) values (v_ip);

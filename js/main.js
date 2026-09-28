@@ -280,7 +280,9 @@ var MAX_CAMPO_DEF = 100;
 var TIPOS_OK = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'application/pdf'];
 var EXT_OK = /\.(jpe?g|png|webp|gif|pdf)$/i;
 var MAX_ARCHIVOS = 5;
-var ESPERA_ENTRE_ENVIOS_MS = 60 * 1000;
+var ESPERA_ENTRE_ENVIOS_MS = 60 * 1000;      // mínimo entre un envío y otro
+var MAX_ENVIOS_POR_HORA = 3;                  // máximo de envíos por hora desde este navegador
+var CLAVE_ENVIOS = 'webkrypto_envios';
 var CAMPOS_CONOCIDOS = {};
 var VALORES_OK = {};
 Array.from(form.elements).forEach(function (el) {
@@ -321,11 +323,36 @@ function uuid4() {
     return h.slice(0, 8) + '-' + h.slice(8, 12) + '-' + h.slice(12, 16) + '-' + h.slice(16, 20) + '-' + h.slice(20);
 }
 
-function enEspera() {
+function enviosRecientes() {
     try {
-        var ult = Number(localStorage.getItem('webkrypto_ultimo_envio')) || 0;
-        return Date.now() - ult < ESPERA_ENTRE_ENVIOS_MS;
-    } catch (e) { return false; }
+        var lista = JSON.parse(localStorage.getItem(CLAVE_ENVIOS)) || [];
+        var desde = Date.now() - 3600 * 1000;
+        return Array.isArray(lista) ? lista.filter(function (t) { return typeof t === 'number' && t > desde; }) : [];
+    } catch (e) { return []; }
+}
+
+// Devuelve un texto explicando la espera si se superó el límite, o '' si puede enviar.
+function mensajeLimite() {
+    var lista = enviosRecientes();
+    if (!lista.length) return '';
+    var ultimo = Math.max.apply(null, lista);
+    var espera = ESPERA_ENTRE_ENVIOS_MS - (Date.now() - ultimo);
+    if (espera > 0) {
+        return 'Ya enviaste un formulario hace un momento. Espera ' + Math.ceil(espera / 1000) + ' segundos antes de enviar otro.';
+    }
+    if (lista.length >= MAX_ENVIOS_POR_HORA) {
+        var minutos = Math.ceil((Math.min.apply(null, lista) + 3600 * 1000 - Date.now()) / 60000);
+        return 'Alcanzaste el máximo de ' + MAX_ENVIOS_POR_HORA + ' formularios por hora. Inténtalo de nuevo en ' + minutos + ' minuto(s) o escríbenos por Instagram (@web_krypto).';
+    }
+    return '';
+}
+
+function registrarEnvio() {
+    try {
+        var lista = enviosRecientes();
+        lista.push(Date.now());
+        localStorage.setItem(CLAVE_ENVIOS, JSON.stringify(lista));
+    } catch (e) {}
 }
 
 var sbPublico = null;
@@ -387,7 +414,7 @@ async function enviarFormulario() {
 
     var insercion = await sb.from('clientes').insert(fila);
     if (insercion.error) throw insercion.error;
-    try { localStorage.setItem('webkrypto_ultimo_envio', String(Date.now())); } catch (e) {}
+    registrarEnvio();
 }
 
 /* ---------- Envío ---------- */
@@ -403,9 +430,12 @@ form.addEventListener('submit', async function (e) {
         }
     }
 
+    var limite = mensajeLimite();
+    if (limite) { alert(limite); return; }
+
     btnEnviar.disabled = true;
     try {
-        var esBot = (form.elements['sitio_web'] && form.elements['sitio_web'].value) || (Date.now() - tAbierto < 5000) || enEspera();
+        var esBot = (form.elements['sitio_web'] && form.elements['sitio_web'].value) || (Date.now() - tAbierto < 5000);
         if (esBot) {
             // Probablemente un bot (campo trampa, demasiado rápido o envío repetido): no guardamos nada, pero mostramos éxito para no delatar el filtro.
         } else if (SUPABASE_URL && SUPABASE_ANON_KEY) {
@@ -421,6 +451,10 @@ form.addEventListener('submit', async function (e) {
         cerrarFormulario();
     } catch (err) {
         console.error(err); // el detalle técnico queda solo en la consola, no se muestra al visitante
+        if (err && /demasiados env/i.test(String(err.message || ''))) {
+            alert('Hemos recibido muchos envíos desde tu conexión. Inténtalo de nuevo más tarde o escríbenos por Instagram (@web_krypto).');
+            return;
+        }
         alert('No pudimos enviar el formulario. Inténtalo de nuevo en unos minutos o escríbenos por Instagram (@web_krypto).');
     } finally {
         btnEnviar.disabled = false;
