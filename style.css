@@ -1050,7 +1050,7 @@ body, html {
     }
 }
 
-/* ---------- Botones flotantes (WhatsApp / Telegram) ---------- */
+/* ---------- Botones flotantes (Instagram) ---------- */
 .flotantes-contacto {
     position: fixed;
     right: 20px;
@@ -1083,8 +1083,8 @@ body, html {
     filter: invert(1);
 }
 
-.flotante-telegram {
-    background-color: #229ed9;
+.flotante-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
 }
 
 @media (max-width: 480px) {

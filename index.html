@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://melbzzocbenpoewlqvbr.supabase.co; connect-src 'self' https://melbzzocbenpoewlqvbr.supabase.co wss://melbzzocbenpoewlqvbr.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebKrypto — Páginas web para tu negocio</title>
     <meta name="description" content="Creamos páginas web profesionales para tu negocio en Chile: landing pages, sitios con panel de administración propio y mantenimiento web. Cotiza gratis en minutos.">
@@ -25,6 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="logo/logo.png">
+    <script src="js/seguridad.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -171,7 +174,7 @@
             </li>
         </ol>
 
-        <button type="button" class="cta-button" onclick="abrirFormulario()">Crea tu web con WebKrypto →</button>
+        <button type="button" class="cta-button" id="btnAbrirForm">Crea tu web con WebKrypto →</button>
     </section>
 
     <section class="faq" id="faq">
@@ -243,7 +246,7 @@
         <p class="footer-texto">¿Tienes un problema, una duda o quieres escribirnos directamente? Contáctanos por cualquiera de estos canales.</p>
         <div class="footer-redes">
             <!-- Reemplaza estos enlaces por tus redes y número reales -->
-            <a href="https://www.instagram.com/web_krypto?stkn=YzI0cHBpcjc2MnAw" target="_blank" rel="noopener" class="footer-contacto-item" aria-label="Instagram">
+            <a href="https://www.instagram.com/web_krypto/" target="_blank" rel="noopener noreferrer" class="footer-contacto-item" aria-label="Instagram">
                 <img src="iconos/instagram.svg" alt="" class="footer-icono" loading="lazy">
                 <span class="footer-contacto-texto">Instagram</span>
             </a>
@@ -257,19 +260,19 @@
 
     <!-- Botón flotante de contacto -->
     <div class="flotantes-contacto">
-        <a href="https://t.me/Web_Krypto" target="_blank" rel="noopener" class="flotante flotante-telegram" aria-label="Escríbenos por Telegram">
-            <img src="iconos/telegram.svg" alt="" loading="lazy">
+        <a href="https://ig.me/m/web_krypto" target="_blank" rel="noopener noreferrer" class="flotante flotante-instagram" aria-label="Escríbenos por Instagram">
+            <img src="iconos/instagram.svg" alt="" loading="lazy">
         </a>
     </div>
 
     <div class="modal-overlay" id="modalFormulario">
         <div class="modal-box" role="dialog" aria-modal="true" aria-label="Formulario de inicio">
-            <button type="button" class="modal-close" onclick="cerrarFormulario()" aria-label="Cerrar">×</button>
+            <button type="button" class="modal-close" id="btnCerrarForm" aria-label="Cerrar">×</button>
 
             <form id="formInicio" class="form-inicio" novalidate>
                 <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
                     <label for="sitio_web">No llenar este campo</label>
-                    <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off">
+                    <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off" maxlength="50">
                 </div>
                 <div class="form-header">
                     <h2 class="form-titulo">Formulario de inicio</h2>
@@ -282,40 +285,40 @@
                 <fieldset class="paso" data-paso="contacto">
                     <legend>Datos y contacto</legend>
                     <label>Nombre del negocio <span class="req">*</span>
-                        <input type="text" name="nombre_negocio" required>
+                        <input type="text" name="nombre_negocio" required maxlength="100">
                     </label>
                     <label>Nombre del representante/contacto <span class="req">*</span>
-                        <input type="text" name="nombre_contacto" required>
+                        <input type="text" name="nombre_contacto" required maxlength="100">
                     </label>
                     <label>Rubro del negocio
-                        <input type="text" name="rubro">
+                        <input type="text" name="rubro" maxlength="100">
                     </label>
                     <label>Ciudad / comuna
-                        <input type="text" name="ciudad">
+                        <input type="text" name="ciudad" maxlength="100">
                     </label>
                     <p class="form-nota">Necesitamos al menos un WhatsApp o un correo para contactarte <span class="req">*</span></p>
                     <label>Número de WhatsApp
-                        <input type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="+56 9 1234 5678">
+                        <input type="tel" name="whatsapp" inputmode="tel" pattern="[0-9+()\-\s.]{8,20}" autocomplete="tel" placeholder="+56 9 1234 5678" maxlength="20">
                     </label>
                     <label>Correo electrónico
-                        <input type="email" name="correo" autocomplete="email">
+                        <input type="email" name="correo" autocomplete="email" maxlength="254">
                     </label>
                     <label>Redes sociales (opcional)
-                        <input type="text" name="redes_sociales" placeholder="Instagram, Facebook, TikTok...">
+                        <input type="text" name="redes_sociales" placeholder="Instagram, Facebook, TikTok..." maxlength="200">
                     </label>
                     <p class="form-pregunta">¿Por qué medio prefieres que te enviemos tu cotización? <span class="req">*</span></p>
                     <label class="radio"><input type="radio" name="medio_cotizacion" value="WhatsApp" required> WhatsApp</label>
                     <label class="radio"><input type="radio" name="medio_cotizacion" value="Correo electrónico" required> Correo electrónico</label>
-                    <label class="radio-otro"><input type="radio" name="medio_cotizacion" value="Otro" required> Otro: <input type="text" name="medio_cotizacion_otro"></label>
+                    <label class="radio-otro"><input type="radio" name="medio_cotizacion" value="Otro" required> Otro: <input type="text" name="medio_cotizacion_otro" maxlength="100"></label>
                     <label>¿Tienes un horario preferido para que te contactemos? (opcional)
-                        <input type="text" name="horario_preferido" placeholder="Ej: tardes después de las 18:00">
+                        <input type="text" name="horario_preferido" placeholder="Ej: tardes después de las 18:00" maxlength="100">
                     </label>
                 </fieldset>
 
                 <fieldset class="paso">
                     <legend>Tu negocio y tu página</legend>
                     <label>Cuéntanos qué hace tu negocio y qué productos o servicios ofreces
-                        <textarea name="sobre_negocio" rows="3"></textarea>
+                        <textarea name="sobre_negocio" maxlength="1500" rows="3"></textarea>
                     </label>
                     <p class="form-pregunta">¿Cuál es el principal objetivo de la página?</p>
                     <label class="check"><input type="checkbox" name="objetivo" value="Conseguir clientes"> Conseguir clientes</label>
@@ -324,7 +327,7 @@
                     <label class="check"><input type="checkbox" name="objetivo" value="Reservas / citas"> Reservas / citas</label>
                     <label class="check"><input type="checkbox" name="objetivo" value="Vender productos"> Vender productos</label>
                     <label class="check"><input type="checkbox" name="objetivo" value="Mostrar información del negocio"> Mostrar información del negocio</label>
-                    <label class="check-otro"><input type="checkbox" name="objetivo" value="Otro"> Otro: <input type="text" name="objetivo_otro"></label>
+                    <label class="check-otro"><input type="checkbox" name="objetivo" value="Otro"> Otro: <input type="text" name="objetivo_otro" maxlength="100"></label>
                     <p class="form-pregunta">Marca las secciones que quieres en tu página:</p>
                     <label class="check"><input type="checkbox" name="secciones" value="Inicio"> Inicio</label>
                     <label class="check"><input type="checkbox" name="secciones" value="Nosotros"> Nosotros</label>
@@ -337,7 +340,7 @@
                     <label class="check"><input type="checkbox" name="secciones" value="Preguntas frecuentes"> Preguntas frecuentes</label>
                     <label class="check"><input type="checkbox" name="secciones" value="Testimonios"> Testimonios</label>
                     <label class="check"><input type="checkbox" name="secciones" value="Blog / noticias"> Blog / noticias</label>
-                    <label class="check-otro"><input type="checkbox" name="secciones" value="Otra"> Otra: <input type="text" name="secciones_otra"></label>
+                    <label class="check-otro"><input type="checkbox" name="secciones" value="Otra"> Otra: <input type="text" name="secciones_otra" maxlength="100"></label>
                     <p class="form-pregunta">¿Qué funciones necesitas?</p>
                     <label class="check"><input type="checkbox" name="funciones" value="Botón de WhatsApp"> Botón de WhatsApp</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Formulario de contacto"> Formulario de contacto</label>
@@ -346,7 +349,7 @@
                     <label class="check"><input type="checkbox" name="funciones" value="Catálogo de productos"> Catálogo de productos</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Blog"> Blog</label>
                     <label class="check"><input type="checkbox" name="funciones" value="Newsletter"> Newsletter</label>
-                    <label class="check-otro"><input type="checkbox" name="funciones" value="Otra"> Otra función: <input type="text" name="funciones_otra"></label>
+                    <label class="check-otro"><input type="checkbox" name="funciones" value="Otra"> Otra función: <input type="text" name="funciones_otra" maxlength="100"></label>
                 </fieldset>
 
                 <fieldset class="paso">
@@ -356,7 +359,7 @@
                     <label class="radio"><input type="radio" name="tiene_dominio" value="No"> No</label>
                     <label class="radio"><input type="radio" name="tiene_dominio" value="No sé qué es un dominio"> No sé qué es un dominio</label>
                     <label>Si tienes uno, ¿cuál es?
-                        <input type="text" name="dominio">
+                        <input type="text" name="dominio" maxlength="253">
                     </label>
                     <p class="form-pregunta">¿Ya tienes hosting?</p>
                     <label class="radio"><input type="radio" name="tiene_hosting" value="Sí"> Sí</label>
@@ -370,11 +373,11 @@
                 <fieldset class="paso">
                     <legend>Confirmación</legend>
                     <label>¿Algo más que quieras contarnos? (logo, fotos, colores, referencias de diseño, etc. — puedes enviarlos después por WhatsApp o correo)
-                        <textarea name="info_adicional" rows="2"></textarea>
+                        <textarea name="info_adicional" maxlength="1500" rows="2"></textarea>
                     </label>
                     <p class="form-nota">Al enviar este formulario confirmo que la información proporcionada es correcta y que entregaré los materiales necesarios para desarrollar la página.</p>
                     <label class="check"><input type="checkbox" name="confirmacion" value="Sí" required> Confirmo que la información entregada es correcta.</label>
-                    <label class="check"><input type="checkbox" name="acepta_politicas" value="Sí" required> He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos de Uso</a>.</label>
+                    <label class="check"><input type="checkbox" name="acepta_politicas" value="Sí" required> He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos de Uso</a>.</label>
                 </fieldset>
 
 
@@ -387,365 +390,8 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-var STORAGE_KEY = 'webkrypto_form_v1';
-var SUPABASE_URL = 'https://melbzzocbenpoewlqvbr.supabase.co';
-var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1lbGJ6em9jYmVucG9ld2xxdmJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwNTk4NjcsImV4cCI6MjEwMTYzNTg2N30.bnXFTnmpKR0OTv_8_R3yI-iH0hX2pwG7kMrpyGSK56E';
-var MAX_MB = 10;
-
-/* ---------- Menú móvil ---------- */
-var navToggle = document.getElementById('navToggle');
-var navMenu = document.getElementById('navMenu');
-
-navToggle.addEventListener('click', function () {
-    var abierto = navMenu.classList.toggle('abierto');
-    navToggle.classList.toggle('activo', abierto);
-    navToggle.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-    document.body.style.overflow = abierto ? 'hidden' : '';
-});
-
-navMenu.querySelectorAll('a').forEach(function (enlace) {
-    enlace.addEventListener('click', function () {
-        navMenu.classList.remove('abierto');
-        navToggle.classList.remove('activo');
-        navToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-    });
-});
-
-/* ---------- Carrusel de banners ---------- */
-(function () {
-    var carrusel = document.querySelector('.hero-carousel');
-    if (!carrusel) return;
-
-    var track = carrusel.querySelector('.hero-carousel-track');
-    var slides = Array.from(carrusel.querySelectorAll('.hero-slide'));
-    var puntosCont = document.getElementById('heroPuntos');
-    var btnAnterior = document.getElementById('heroAnterior');
-    var btnSiguiente = document.getElementById('heroSiguiente');
-    var INTERVALO_MS = 8000;
-    var indice = 0;
-    var temporizador = null;
-
-    if (slides.length < 2) {
-        if (btnAnterior) btnAnterior.hidden = true;
-        if (btnSiguiente) btnSiguiente.hidden = true;
-        return;
-    }
-
-    slides.forEach(function (_, i) {
-        var punto = document.createElement('button');
-        punto.type = 'button';
-        punto.className = 'hero-punto' + (i === 0 ? ' activo' : '');
-        punto.setAttribute('aria-label', 'Ir al banner ' + (i + 1));
-        punto.addEventListener('click', function () {
-            irA(i);
-            reiniciarAuto();
-        });
-        puntosCont.appendChild(punto);
-    });
-    var puntos = Array.from(puntosCont.children);
-
-    function irA(i) {
-        indice = (i + slides.length) % slides.length;
-        track.style.transform = 'translateX(-' + (indice * 100) + '%)';
-        puntos.forEach(function (p, j) { p.classList.toggle('activo', j === indice); });
-    }
-
-    function siguiente() { irA(indice + 1); }
-    function anterior() { irA(indice - 1); }
-
-    function iniciarAuto() { temporizador = setInterval(siguiente, INTERVALO_MS); }
-    function detenerAuto() { clearInterval(temporizador); }
-    function reiniciarAuto() { detenerAuto(); iniciarAuto(); }
-
-    btnSiguiente.addEventListener('click', function () { siguiente(); reiniciarAuto(); });
-    btnAnterior.addEventListener('click', function () { anterior(); reiniciarAuto(); });
-
-    carrusel.addEventListener('mouseenter', detenerAuto);
-    carrusel.addEventListener('mouseleave', iniciarAuto);
-
-    iniciarAuto();
-})();
-
-/* ---------- Animaciones al hacer scroll ---------- */
-(function () {
-    var gruposConDesfase = [
-        '.container .card',
-        '.planes .plan',
-        '.proceso .proceso-paso',
-        '.faq-item'
-    ];
-    var titulosSinDesfase = [
-        '.servicios-titulo', '.servicios-subtitulo',
-        '.cta-title', '.cta-aviso',
-        '.faq-titulo'
-    ];
-
-    gruposConDesfase.forEach(function (selector) {
-        document.querySelectorAll(selector).forEach(function (el, i) {
-            el.classList.add('reveal');
-            el.style.transitionDelay = (i % 4) * 0.12 + 's';
-        });
-    });
-
-    titulosSinDesfase.forEach(function (selector) {
-        document.querySelectorAll(selector).forEach(function (el) {
-            el.classList.add('reveal');
-        });
-    });
-
-    if ('IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(function (el) {
-            observer.observe(el);
-        });
-    } else {
-        document.querySelectorAll('.reveal').forEach(function (el) {
-            el.classList.add('visible');
-        });
-    }
-})();
-
-var modal = document.getElementById('modalFormulario');
-var form = document.getElementById('formInicio');
-var pasos = Array.from(form.querySelectorAll('.paso'));
-var btnAtras = document.getElementById('btnAtras');
-var btnSiguiente = document.getElementById('btnSiguiente');
-var btnEnviar = document.getElementById('btnEnviar');
-var barra = document.getElementById('progresoBarra');
-var textoPaso = document.getElementById('progresoTexto');
-var avisoBorrador = document.getElementById('avisoBorrador');
-var actual = 0;
-
-function abrirFormulario() {
-    modal.classList.add('activo');
-    document.body.style.overflow = 'hidden';
-}
-
-function cerrarFormulario() {
-    modal.classList.remove('activo');
-    document.body.style.overflow = '';
-}
-
-modal.addEventListener('click', function (e) {
-    if (e.target === modal) cerrarFormulario();
-});
-
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && modal.classList.contains('activo')) cerrarFormulario();
-});
-
-/* ---------- Wizard ---------- */
-function mostrarPaso(n) {
-    actual = n;
-    pasos.forEach(function (p, i) { p.classList.toggle('activo', i === n); });
-    textoPaso.textContent = 'Paso ' + (n + 1) + ' de ' + pasos.length;
-    barra.style.width = ((n + 1) / pasos.length * 100) + '%';
-    btnAtras.hidden = n === 0;
-    btnSiguiente.hidden = n === pasos.length - 1;
-    btnEnviar.hidden = n !== pasos.length - 1;
-    modal.querySelector('.modal-box').scrollTop = 0;
-    guardar();
-}
-
-/* ---------- Validación ---------- */
-function normalizarWhatsapp(v) {
-    var s = v.replace(/[\s\-().]/g, '');
-    var m = s.match(/^(?:\+?56)?(9\d{8})$/);
-    if (m) return '+56 9 ' + m[1].slice(1, 5) + ' ' + m[1].slice(5);
-    if (/^\+(?!56)\d{8,15}$/.test(s)) return s;
-    return null;
-}
-
-function validarContacto() {
-    var w = form.elements.whatsapp;
-    var c = form.elements.correo;
-    w.setCustomValidity('');
-    if (!w.value.trim() && !c.value.trim()) {
-        w.setCustomValidity('Ingresa un WhatsApp o un correo para poder contactarte.');
-    } else if (w.value.trim() && !normalizarWhatsapp(w.value.trim())) {
-        w.setCustomValidity('Ingresa un número válido, por ejemplo +56 9 1234 5678.');
-    }
-}
-
-function validarPaso(i) {
-    if (pasos[i].dataset.paso === 'contacto') validarContacto();
-    var campos = pasos[i].querySelectorAll('input, textarea');
-    for (var k = 0; k < campos.length; k++) {
-        if (!campos[k].checkValidity()) {
-            campos[k].reportValidity();
-            return false;
-        }
-    }
-    return true;
-}
-
-form.elements.whatsapp.addEventListener('input', validarContacto);
-form.elements.correo.addEventListener('input', validarContacto);
-form.elements.whatsapp.addEventListener('change', function () {
-    var n = normalizarWhatsapp(this.value.trim());
-    if (n) this.value = n;
-});
-
-form.querySelectorAll('input[type="file"]').forEach(function (f) {
-    f.addEventListener('change', function () {
-        var muyGrande = Array.from(f.files).some(function (a) { return a.size > MAX_MB * 1024 * 1024; });
-        f.setCustomValidity(muyGrande ? 'Cada archivo debe pesar menos de ' + MAX_MB + ' MB.' : '');
-        if (muyGrande) f.reportValidity();
-    });
-});
-
-btnSiguiente.addEventListener('click', function () {
-    if (validarPaso(actual)) mostrarPaso(actual + 1);
-});
-btnAtras.addEventListener('click', function () { mostrarPaso(actual - 1); });
-
-/* ---------- Borrador en localStorage ---------- */
-function guardar() {
-    try {
-        var d = { paso: actual, v: {} };
-        var hayDatos = false;
-        Array.from(form.elements).forEach(function (el) {
-            if (!el.name || el.type === 'file') return;
-            if (el.type === 'checkbox' || el.type === 'radio') {
-                if (el.checked) { (d.v[el.name] = d.v[el.name] || []).push(el.value); hayDatos = true; }
-            } else {
-                d.v[el.name] = el.value;
-                if (el.value) hayDatos = true;
-            }
-        });
-        if (hayDatos) localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
-        else localStorage.removeItem(STORAGE_KEY);
-    } catch (e) {}
-}
-
-function restaurar() {
-    try {
-        var d = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (!d) return false;
-        Array.from(form.elements).forEach(function (el) {
-            if (!el.name || el.type === 'file' || !(el.name in d.v)) return;
-            if (el.type === 'checkbox' || el.type === 'radio') el.checked = d.v[el.name].indexOf(el.value) > -1;
-            else el.value = d.v[el.name];
-        });
-        actual = Math.min(d.paso || 0, pasos.length - 1);
-        return true;
-    } catch (e) { return false; }
-}
-
-function borrarBorrador() {
-    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-}
-
-form.addEventListener('input', guardar);
-form.addEventListener('change', guardar);
-
-document.getElementById('btnBorrar').addEventListener('click', function () {
-    form.reset();
-    avisoBorrador.hidden = true;
-    mostrarPaso(0);
-    borrarBorrador();
-});
-
-/* ---------- Envío a Supabase ---------- */
-var CAMPOS_PRINCIPALES = ['nombre_negocio', 'nombre_contacto', 'whatsapp', 'correo'];
-
-async function enviarFormulario() {
-    var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    var formulario = {};
-    var camposArchivo = [];
-    Array.from(form.elements).forEach(function (el) {
-        if (!el.name) return;
-        if (el.type === 'file') { camposArchivo.push(el); return; }
-        if (el.type === 'checkbox') {
-            if (el.checked) {
-                formulario[el.name] = formulario[el.name] || [];
-                formulario[el.name].push(el.value);
-            }
-            return;
-        }
-        if (el.type === 'radio') {
-            if (el.checked) formulario[el.name] = el.value;
-            return;
-        }
-        formulario[el.name] = el.value;
-    });
-
-    var idNuevo = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(16).slice(2));
-    var archivos = {};
-
-    for (var i = 0; i < camposArchivo.length; i++) {
-        var el = camposArchivo[i];
-        if (!el.files || !el.files.length) continue;
-        var urls = [];
-        for (var j = 0; j < el.files.length; j++) {
-            var f = el.files[j];
-            var ruta = idNuevo + '/' + el.name + '-' + Date.now() + '-' + f.name;
-            var subida = await sb.storage.from('adjuntos').upload(ruta, f, { contentType: f.type || 'application/octet-stream' });
-            if (subida.error) throw subida.error;
-            urls.push(sb.storage.from('adjuntos').getPublicUrl(ruta).data.publicUrl);
-        }
-        archivos[el.name] = el.multiple ? urls : urls[0];
-    }
-
-    var fila = { id: idNuevo, formulario: formulario, archivos: archivos, origen: 'formulario' };
-    CAMPOS_PRINCIPALES.forEach(function (c) { fila[c] = formulario[c] || ''; });
-
-    var insercion = await sb.from('clientes').insert(fila);
-    if (insercion.error) throw insercion.error;
-}
-
-/* ---------- Envío ---------- */
-form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    if (actual < pasos.length - 1) { btnSiguiente.click(); return; }
-
-    for (var i = 0; i < pasos.length; i++) {
-        if (!validarPaso(i)) {
-            mostrarPaso(i);
-            validarPaso(i);
-            return;
-        }
-    }
-
-    btnEnviar.disabled = true;
-    try {
-        var esBot = form.elements['sitio_web'] && form.elements['sitio_web'].value;
-        if (esBot) {
-            // Probablemente un bot: no guardamos nada, pero mostramos éxito para no delatar el filtro.
-        } else if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-            await enviarFormulario();
-        } else {
-            console.warn('Config de Supabase vacía: el formulario no se está enviando a ningún servidor.');
-        }
-        alert('¡Gracias! Recibimos tu información y te contactaremos pronto.');
-        form.reset();
-        avisoBorrador.hidden = true;
-        mostrarPaso(0);
-        borrarBorrador();
-        cerrarFormulario();
-    } catch (err) {
-        var detalle = (err && (err.message || err.error_description || err.error || JSON.stringify(err))) || 'sin detalle';
-        alert('No pudimos enviar el formulario.\n\nDETALLE TÉCNICO (mándale esto a Claude):\n' + detalle);
-    } finally {
-        btnEnviar.disabled = false;
-    }
-});
-
-avisoBorrador.hidden = !restaurar();
-mostrarPaso(actual);
-    </script>
+    <script src="js/vendor/supabase.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 </html>
