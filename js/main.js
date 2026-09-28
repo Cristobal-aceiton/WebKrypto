@@ -1,5 +1,5 @@
 'use strict';
-var STORAGE_KEY = 'webkrypto_form_v1';
+var STORAGE_KEY = 'webkrypto_form_v2';
 var SUPABASE_URL = 'https://melbzzocbenpoewlqvbr.supabase.co';
 var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1lbGJ6em9jYmVucG9ld2xxdmJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwNTk4NjcsImV4cCI6MjEwMTYzNTg2N30.bnXFTnmpKR0OTv_8_R3yI-iH0hX2pwG7kMrpyGSK56E';
 var MAX_MB = 10;

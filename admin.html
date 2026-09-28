@@ -107,6 +107,14 @@ td{padding-top:14px;padding-bottom:14px;} tbody tr{transition:background .12s;} 
 .overlay{backdrop-filter:blur(3px);} .modal{border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.35);}
 .modal h2{font-size:20px;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid var(--line);}
 .nota button{display:grid;place-items:center;width:24px;height:24px;} .nota button:hover{color:#d93025;}
+.aviso-err{background:#fbdada;color:#a11c11;border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:14px;font-weight:600;}
+.tabla-wrap{transition:opacity .15s;} .tabla-wrap.cargando{opacity:.55;pointer-events:none;} #vTabla{scroll-margin-top:90px;}
+.paginacion{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;}
+.paginacion .meta{margin:0;} .pag-botones{display:flex;gap:6px;flex-wrap:wrap;}
+.pag-btn{min-width:36px;height:36px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);font-weight:600;cursor:pointer;}
+.pag-btn:hover:not(:disabled){border-color:var(--brand2);color:var(--brand);} .pag-btn.act{background:var(--brand);border-color:var(--brand);color:#fff;} .pag-btn:disabled{opacity:.4;cursor:not-allowed;}
+.pag-tam{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;} .pag-tam select{padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);}
+.vermas{width:100%;margin-top:4px;}
 </style>
 <script src="js/seguridad.js"></script>
 </head>
@@ -134,6 +142,7 @@ td{padding-top:14px;padding-bottom:14px;} tbody tr{transition:background .12s;} 
  </div>
 </header>
 <main>
+ <div class="aviso-err" id="avisoDatos" role="alert" hidden></div>
  <div class="kpis" id="kpis"></div>
  <div id="alertas"></div>
  <div class="tabs">
@@ -142,7 +151,7 @@ td{padding-top:14px;padding-bottom:14px;} tbody tr{transition:background .12s;} 
    <button class="tab" data-vista="stats"><svg class="i"><use href="#i-trend"/></svg> Estadísticas</button>
  </div>
  <div class="toolbar" id="toolbar">
-   <div class="busca"><svg class="i"><use href="#i-search"/></svg><input type="search" id="buscar" placeholder="Buscar por negocio, contacto, correo, WhatsApp, plan, notas..."></div>
+   <div class="busca"><svg class="i"><use href="#i-search"/></svg><input type="search" id="buscar" placeholder="Buscar por negocio, contacto, correo, WhatsApp, ciudad, rubro, notas..." maxlength="60"></div>
    <select id="filtroEstado"><option value="">Todos los estados</option><option>Pendiente</option><option>Concretado</option><option>No concretado</option><option>Cancelado</option></select>
    <select id="filtroPago"><option value="">Todos los pagos</option><option>Pendiente</option><option>Parcial</option><option>Pagado</option></select>
    <select id="filtroPlan"><option value="">Todos los planes</option></select>
@@ -157,6 +166,13 @@ td{padding-top:14px;padding-bottom:14px;} tbody tr{transition:background .12s;} 
    <tbody id="filas"></tbody>
   </table>
   <div class="vacio" id="vacio" hidden>No hay clientes que coincidan.</div>
+ </div>
+ <div class="paginacion" id="paginacion" hidden>
+  <span class="meta" id="pagInfo" aria-live="polite"></span>
+  <div class="pag-botones" id="pagBotones"></div>
+  <label class="pag-tam">Filas por página
+   <select id="tamPagina"><option value="10">10</option><option value="20" selected>20</option><option value="50">50</option><option value="100">100</option></select>
+  </label>
  </div>
  <div id="vTablero" class="tablero" hidden></div>
  <div id="vStats" class="stats" hidden></div>

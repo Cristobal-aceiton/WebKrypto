@@ -1200,3 +1200,43 @@ body, html {
         padding-right: 18px;
     }
 }
+
+/* ---------- Paso "¿Qué servicio te interesa?" ---------- */
+.form-inicio label.opcion-servicio {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 2px solid #e0f2f2;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.form-inicio label.opcion-servicio:hover {
+    border-color: #1e9494;
+}
+
+.form-inicio label.opcion-servicio:has(input:checked) {
+    border-color: #1e9494;
+    background-color: #eef8f8;
+}
+
+.form-inicio label.opcion-servicio input[type="radio"] {
+    margin-top: 3px;
+}
+
+.form-inicio label.opcion-servicio b {
+    display: block;
+    font-size: 15px;
+    color: #0d6e80;
+}
+
+.form-inicio label.opcion-servicio small {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #555555;
+}
