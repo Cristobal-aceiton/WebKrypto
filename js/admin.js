@@ -180,7 +180,8 @@ function pasaFiltros(d, fe) {
 /* ---------- Render ---------- */
 function renderResumen() { renderKpis(); renderAlertas(); poblarPlanes(); }
 function mostrarVista() {
-  $('#vTabla').hidden = vista !== 'tabla'; $('#vTablero').hidden = vista !== 'tablero'; $('#vStats').hidden = vista !== 'stats';
+  $('#vTabla').hidden = vista !== 'tabla'; $('#vTablero').hidden = vista !== 'tablero'; $('#vStats').hidden = vista !== 'stats'; $('#vInsta').hidden = vista !== 'insta';
+  $('#toolbar').hidden = vista === 'insta';
   $('#paginacion').hidden = vista !== 'tabla' || totalFilas === 0;
   $('#filtroEstado').style.display = vista === 'tablero' ? 'none' : '';
   document.querySelectorAll('.tab').forEach(function (t) { t.classList.toggle('act', t.dataset.vista === vista); });
@@ -189,6 +190,7 @@ function cargarVista() {
   mostrarVista();
   if (vista === 'tabla') return cargarPagina();
   if (vista === 'tablero') return cargarTablero(true);
+  if (vista === 'insta') return cargarInsta();
   return cargarStats(false);
 }
 function cargarTodo() { datosStats = null; return Promise.all([cargarResumen(), cargarVista()]); }
@@ -430,11 +432,74 @@ $('#btnEliminar').addEventListener('click', async function () {
 
 /* ---------- Carga ---------- */
 $('#btnActualizar').addEventListener('click', function () { cargarTodo(); });
+
+/* ---------- Instagram: publicaciones del carrusel de la web ---------- */
+var IG_BUCKET = 'instagram', IG_MAX_MB = 5, IG_EXT = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+var postsIg = [];
+function msgIg(t, ok) { var e = $('#igMsg'); e.textContent = t || ''; e.className = 'ig-msg' + (ok ? ' ok' : ''); }
+function errorInsta(err) {
+  console.error(err);
+  var m = String((err && err.message) || '');
+  var falta = /relation|does not exist|schema cache|42P01|PGRST20|bucket/i.test(m);
+  var av = $('#avisoDatos');
+  av.textContent = falta ? 'Falta crear la tabla de Instagram: ejecuta migracion_instagram.sql en Supabase (SQL Editor) y recarga el panel.' : 'No se pudieron cargar las publicaciones. Revisa tu conexión y pulsa Actualizar.';
+  av.hidden = false;
+}
+async function cargarInsta() {
+  var r = await sb.from('instagram_posts').select('id,imagen_url,imagen_path,post_url,texto,creado_at').order('creado_at', { ascending: false });
+  if (r.error) { errorInsta(r.error); return; }
+  sinError(); postsIg = r.data || []; renderInsta();
+}
+function renderInsta() {
+  var cont = $('#igLista');
+  if (!postsIg.length) { cont.innerHTML = '<p class="meta">Aún no hay publicaciones. Agrega la primera con el formulario de arriba.</p>'; return; }
+  cont.innerHTML = postsIg.map(function (p, i) {
+    return '<div class="ig-item">' +
+      '<img src="' + escapeHtml(p.imagen_url) + '" alt="" loading="lazy">' +
+      '<div class="ig-info">' +
+        '<span class="ig-badge' + (i < 3 ? '' : ' off') + '">' + (i < 3 ? 'Visible en la web' : 'No visible (hay 3 más nuevos)') + '</span>' +
+        (p.texto ? '<p>' + escapeHtml(p.texto) + '</p>' : '') +
+        '<a href="' + escapeHtml(p.post_url) + '" target="_blank" rel="noopener noreferrer">Abrir en Instagram</a>' +
+        '<span>' + escapeHtml(fechaCL(p.creado_at)) + '</span>' +
+      '</div>' +
+      '<button type="button" class="btn btn-peligro" data-id="' + escapeHtml(p.id) + '">Eliminar</button>' +
+    '</div>';
+  }).join('');
+}
+$('#formIg').addEventListener('submit', async function (e) {
+  e.preventDefault(); msgIg('');
+  var archivo = $('#igArchivo').files[0], url = $('#igUrl').value.trim(), texto = $('#igTexto').value.trim();
+  if (!archivo) { msgIg('Elige una imagen.'); return; }
+  if (!IG_EXT[archivo.type]) { msgIg('La imagen debe ser JPG, PNG o WebP.'); return; }
+  if (archivo.size > IG_MAX_MB * 1024 * 1024) { msgIg('La imagen pesa más de ' + IG_MAX_MB + ' MB.'); return; }
+  if (!/^https:\/\/(www\.)?instagram\.com\//.test(url)) { msgIg('El link debe ser de Instagram (https://www.instagram.com/...).'); return; }
+  var btn = $('#btnIgGuardar'); btn.disabled = true; msgIg('Subiendo...', true);
+  var ruta = (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)) + '.' + IG_EXT[archivo.type];
+  var up = await sb.storage.from(IG_BUCKET).upload(ruta, archivo, { contentType: archivo.type, cacheControl: '31536000', upsert: false });
+  if (up.error) { btn.disabled = false; msgIg('No se pudo subir la imagen. ¿Ya ejecutaste migracion_instagram.sql?'); console.error(up.error); return; }
+  var pub = sb.storage.from(IG_BUCKET).getPublicUrl(ruta).data.publicUrl;
+  var ins = await sb.from('instagram_posts').insert({ imagen_url: pub, imagen_path: ruta, post_url: url, texto: texto || null });
+  btn.disabled = false;
+  if (ins.error) { await sb.storage.from(IG_BUCKET).remove([ruta]); msgIg('No se pudo guardar la publicación.'); console.error(ins.error); return; }
+  $('#formIg').reset(); msgIg('¡Publicada! Ya aparece en la web.', true);
+  cargarInsta();
+});
+$('#igLista').addEventListener('click', async function (e) {
+  var b = e.target.closest('button[data-id]'); if (!b) return;
+  var p = postsIg.filter(function (x) { return x.id === b.dataset.id; })[0]; if (!p) return;
+  if (!confirm('¿Eliminar esta publicación del carrusel?')) return;
+  b.disabled = true;
+  var r = await sb.from('instagram_posts').delete().eq('id', p.id);
+  if (r.error) { b.disabled = false; msgIg('No se pudo eliminar.'); console.error(r.error); return; }
+  if (p.imagen_path) await sb.storage.from(IG_BUCKET).remove([p.imagen_path]);
+  msgIg('Publicación eliminada.', true); cargarInsta();
+});
+
 var ticks = 0;
 setInterval(function () {
   if ($('#app').style.display !== 'block' || arrastrando || overlay.classList.contains('abierto') || document.hidden) return;
   ticks++;
   if (ticks % 5 === 0) cargarResumen();              // KPIs cada ~2,5 min
-  if (vista !== 'stats') cargarVista();              // solo lo que estás viendo, cada 30 s
+  if (vista !== 'stats' && vista !== 'insta') cargarVista();              // solo lo que estás viendo, cada 30 s
 }, 30000);
 sb.auth.getSession().then(function (r) { if (r.data && r.data.session) { $('#login').style.display = 'none'; $('#app').style.display = 'block'; cargarTodoSuave(); } });

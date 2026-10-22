@@ -1240,3 +1240,280 @@ body, html {
     line-height: 1.4;
     color: #555555;
 }
+
+/* ---------- Carrusel de Instagram ---------- */
+.insta {
+    padding: 20px 20px 80px;
+    font-family: Poppins, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.insta-titulo {
+    color: #ffffff;
+    font-size: 28px;
+    margin: 0 0 10px 0;
+}
+
+.insta-sub {
+    color: #cfe9e9;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 480px;
+    margin: 0 auto 28px;
+}
+
+.insta-carrusel {
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.insta-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.insta-track::-webkit-scrollbar {
+    display: none;
+}
+
+.insta-post {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #0a5866;
+    text-decoration: none;
+}
+
+.insta-post img.insta-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.insta-post:hover img.insta-foto,
+.insta-post:focus-visible img.insta-foto {
+    transform: scale(1.05);
+}
+
+.insta-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    padding: 6px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    filter: invert(1);
+}
+
+.insta-texto {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 14px 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.insta-flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.insta-flecha:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.insta-flecha-izq { left: 8px; }
+.insta-flecha-der { right: 8px; }
+
+.insta-puntos {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0 4px;
+}
+
+.insta-punto {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+}
+
+.insta-punto.activo {
+    background: #11d690;
+}
+
+.insta-btn {
+    display: inline-block;
+    margin-top: 24px;
+    background-color: #11d690;
+    color: #0d3d1a;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.insta-btn:hover {
+    background-color: #02ff23;
+    transform: translateY(-2px);
+}
+
+/* En pantallas anchas se ven las 3 publicaciones juntas, sin flechas ni puntos */
+@media (min-width: 900px) {
+    .insta-carrusel {
+        max-width: none;
+    }
+
+    .insta-track {
+        overflow: visible;
+        justify-content: center;
+    }
+
+    .insta-post {
+        flex: 1 1 0;
+        max-width: 310px;
+    }
+
+    .insta-flecha,
+    .insta-puntos {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .insta-titulo {
+        font-size: 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .insta-post img.insta-foto,
+    .insta-btn {
+        transition: none;
+    }
+}
+
+/* ---------- Texto solo para lectores de pantalla y buscadores ---------- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Aviso de cookies ---------- */
+.cookie-banner {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 900;
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #0b2638;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    color: #cfe9e9;
+    font-family: Poppins, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.cookie-banner p {
+    flex: 1 1 280px;
+    margin: 0;
+}
+
+.cookie-banner a {
+    color: #11d690;
+}
+
+.cookie-acciones {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.cookie-banner button {
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    color: #ffffff;
+}
+
+.cookie-banner button.cookie-aceptar {
+    background: #11d690;
+    border-color: #11d690;
+    color: #0d3d1a;
+}
+
+.footer-cookies {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: #cfe9e9;
+    cursor: pointer;
+}
+
+.footer-cookies:hover {
+    text-decoration: underline;
+}

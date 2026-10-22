@@ -443,6 +443,7 @@ form.addEventListener('submit', async function (e) {
         } else {
             console.warn('Config de Supabase vacía: el formulario no se está enviando a ningún servidor.');
         }
+        if (!esBot && window.wkTrack) window.wkTrack('generate_lead', { form: 'cotizacion' });
         alert('¡Gracias! Recibimos tu información y te contactaremos pronto.');
         form.reset();
         avisoBorrador.hidden = true;
@@ -463,3 +464,90 @@ form.addEventListener('submit', async function (e) {
 
 avisoBorrador.hidden = !restaurar();
 mostrarPaso(actual);
+
+/* ---------- Carrusel de Instagram (posts que cargas desde el panel admin) ---------- */
+(function () {
+    var seccion = document.getElementById('instagram');
+    var track = document.getElementById('instaTrack');
+    if (!seccion || !track || typeof supabase === 'undefined') return;
+
+    var BASE_IMG = SUPABASE_URL + '/storage/v1/object/public/instagram/';
+    var puntosCont = document.getElementById('instaPuntos');
+    var btnAnt = document.getElementById('instaAnterior');
+    var btnSig = document.getElementById('instaSiguiente');
+    var cards = [], puntos = [];
+
+    function urlInstagramValida(u) { return /^https:\/\/(www\.)?instagram\.com\//.test(u || ''); }
+    function urlImagenValida(u) { return typeof u === 'string' && u.indexOf(BASE_IMG) === 0; }
+    function pasoScroll() { return cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth; }
+    function suave() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; }
+    function indiceActual() { return Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / (pasoScroll() || 1)))); }
+    function irA(i) { track.scrollTo({ left: Math.max(0, Math.min(cards.length - 1, i)) * pasoScroll(), behavior: suave() }); }
+    function marcarPunto() { var a = indiceActual(); puntos.forEach(function (p, i) { p.classList.toggle('activo', i === a); }); }
+
+    function render(posts) {
+        posts.forEach(function (p, i) {
+            var a = document.createElement('a');
+            a.className = 'insta-post';
+            a.href = p.post_url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.setAttribute('aria-label', 'Ver publicación ' + (i + 1) + ' en Instagram' + (p.texto ? ': ' + p.texto : ''));
+
+            var img = document.createElement('img');
+            img.className = 'insta-foto';
+            img.src = p.imagen_url;
+            img.alt = p.texto || 'Publicación de WebKrypto en Instagram';
+            img.loading = 'lazy';
+            a.appendChild(img);
+
+            var ig = document.createElement('img');
+            ig.className = 'insta-badge';
+            ig.src = 'iconos/instagram.svg';
+            ig.alt = '';
+            a.appendChild(ig);
+
+            if (p.texto) {
+                var t = document.createElement('span');
+                t.className = 'insta-texto';
+                t.textContent = p.texto;
+                a.appendChild(t);
+            }
+            track.appendChild(a);
+            cards.push(a);
+
+            var punto = document.createElement('button');
+            punto.type = 'button';
+            punto.className = 'insta-punto' + (i === 0 ? ' activo' : '');
+            punto.setAttribute('aria-label', 'Ir a la publicación ' + (i + 1));
+            punto.addEventListener('click', function () { irA(i); });
+            puntosCont.appendChild(punto);
+            puntos.push(punto);
+        });
+
+        if (posts.length < 2) { btnAnt.style.display = 'none'; btnSig.style.display = 'none'; puntosCont.style.display = 'none'; }
+        btnAnt.addEventListener('click', function () { irA(indiceActual() - 1); });
+        btnSig.addEventListener('click', function () { irA(indiceActual() + 1); });
+
+        var pendiente = false;
+        track.addEventListener('scroll', function () {
+            if (pendiente) return;
+            pendiente = true;
+            requestAnimationFrame(function () { pendiente = false; marcarPunto(); });
+        }, { passive: true });
+    }
+
+    getSb().from('instagram_posts')
+        .select('imagen_url,post_url,texto')
+        .order('creado_at', { ascending: false })
+        .limit(3)
+        .then(function (r) {
+            if (r.error || !r.data) return;
+            // Solo se muestran posts con link de Instagram e imagen de nuestro propio Storage.
+            var ok = r.data.filter(function (p) { return urlInstagramValida(p.post_url) && urlImagenValida(p.imagen_url); });
+            if (!ok.length) return;
+            render(ok);
+            seccion.hidden = false;
+        })
+        .catch(function () { /* si falla, la sección simplemente no aparece */ });
+})();

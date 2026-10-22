@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://melbzzocbenpoewlqvbr.supabase.co; connect-src 'self' https://melbzzocbenpoewlqvbr.supabase.co wss://melbzzocbenpoewlqvbr.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://melbzzocbenpoewlqvbr.supabase.co https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://melbzzocbenpoewlqvbr.supabase.co wss://melbzzocbenpoewlqvbr.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Términos de Uso — WebKrypto</title>
@@ -12,12 +12,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="logo/logo.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="logo/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="logo/favicon-192.png">
+    <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
     <script src="js/seguridad.js"></script>
 </head>
 <body>
     <header class="legal-header">
-        <a href="index.html"><img src="logo/logo.png" alt="WebKrypto logo"></a>
+        <a href="index.html"><img src="logo/logo-opt.png" alt="WebKrypto logo" width="512" height="341"></a>
     </header>
 
     <main class="legal-content">
@@ -82,5 +84,6 @@
         </div>
         <p class="footer-copy">© 2026 WebKrypto · <a href="privacidad.html" style="color:#cfe9e9;">Privacidad</a> · <a href="terminos.html" style="color:#cfe9e9;">Términos de uso</a></p>
     </footer>
+    <script src="js/analytics.js" defer></script>
 </body>
 </html>

@@ -2,36 +2,125 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://melbzzocbenpoewlqvbr.supabase.co; connect-src 'self' https://melbzzocbenpoewlqvbr.supabase.co wss://melbzzocbenpoewlqvbr.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://melbzzocbenpoewlqvbr.supabase.co https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://melbzzocbenpoewlqvbr.supabase.co wss://melbzzocbenpoewlqvbr.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebKrypto — Páginas web para tu negocio</title>
-    <meta name="description" content="Creamos páginas web profesionales para tu negocio en Chile: landing pages, sitios con panel de administración propio y mantenimiento web. Cotiza gratis en minutos.">
+    <title>Páginas web profesionales en Chile | WebKrypto</title>
+    <meta name="description" content="Creamos páginas web profesionales para negocios en Chile: landing pages, sitios con panel propio y mantenimiento. Cotiza sin compromiso.">
+
+    <link rel="canonical" href="https://webkrypto.shop/">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="theme-color" content="#0b2638">
 
     <!-- Open Graph (vista previa al compartir en WhatsApp, Instagram, Facebook, etc.) -->
-    <!-- IMPORTANTE: reemplaza "https://TU-DOMINIO-AQUI/" por tu dominio real si es distinto -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="WebKrypto — Páginas web para tu negocio">
-    <meta property="og:description" content="Convierte visitantes en clientes con una web profesional. Cotiza tu página web hoy, sin compromiso.">
-    <meta property="og:image" content="https://TU-DOMINIO-AQUI/banner/banner-pc.png">
-    <meta property="og:url" content="https://TU-DOMINIO-AQUI/">
+    <meta property="og:site_name" content="WebKrypto">
+    <meta property="og:title" content="Páginas web profesionales en Chile | WebKrypto">
+    <meta property="og:description" content="Convierte visitantes en clientes con una web profesional. Landing pages y sitios con panel propio. Cotiza sin compromiso.">
+    <meta property="og:image" content="https://webkrypto.shop/banner/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="WebKrypto: páginas web profesionales para tu negocio">
+    <meta property="og:url" content="https://webkrypto.shop/">
     <meta property="og:locale" content="es_CL">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="WebKrypto — Páginas web para tu negocio">
-    <meta name="twitter:description" content="Convierte visitantes en clientes con una web profesional. Cotiza tu página web hoy, sin compromiso.">
-    <meta name="twitter:image" content="https://TU-DOMINIO-AQUI/banner/banner-pc.png">
+    <meta name="twitter:title" content="Páginas web profesionales en Chile | WebKrypto">
+    <meta name="twitter:description" content="Convierte visitantes en clientes con una web profesional. Cotiza sin compromiso.">
+    <meta name="twitter:image" content="https://webkrypto.shop/banner/og-image.png">
 
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="logo/logo.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="logo/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="logo/favicon-192.png">
+    <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://webkrypto.shop/#organization",
+      "name": "WebKrypto",
+      "url": "https://webkrypto.shop/",
+      "logo": "https://webkrypto.shop/logo/favicon-192.png",
+      "email": "WebKrypto@proton.me",
+      "sameAs": [
+        "https://www.instagram.com/web_krypto/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://webkrypto.shop/#website",
+      "url": "https://webkrypto.shop/",
+      "name": "WebKrypto",
+      "inLanguage": "es-CL",
+      "publisher": {
+        "@id": "https://webkrypto.shop/#organization"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://webkrypto.shop/#servicio",
+      "name": "WebKrypto",
+      "url": "https://webkrypto.shop/",
+      "image": "https://webkrypto.shop/banner/og-image.png",
+      "email": "WebKrypto@proton.me",
+      "description": "Diseño y desarrollo de páginas web profesionales para negocios en Chile: landing pages, sitios con panel de administración propio y mantenimiento web.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Chile"
+      },
+      "parentOrganization": {
+        "@id": "https://webkrypto.shop/#organization"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Planes de WebKrypto",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "priceCurrency": "CLP",
+            "price": "35990",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Landing Page",
+              "description": "Página web de una sola sección para presentar tu negocio y conseguir nuevos clientes."
+            }
+          },
+          {
+            "@type": "Offer",
+            "priceCurrency": "CLP",
+            "price": "49990",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Página Web Profesional",
+              "description": "Web completa con panel de administración propio para gestionar tu contenido."
+            }
+          },
+          {
+            "@type": "Offer",
+            "priceCurrency": "CLP",
+            "price": "5000",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mantenimiento web mensual",
+              "description": "Cambios de textos, imágenes, colores, productos e información del negocio."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+    </script>
     <script src="js/seguridad.js"></script>
 </head>
 <body>
     <nav class="navbar">
-        <img src="logo/logo.png" alt="WebKrypto logo" class="navbar-logo">
+        <img src="logo/logo-opt.png" alt="WebKrypto logo" class="navbar-logo" width="512" height="341">
 
         <button type="button" class="navbar-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMenu">
             <span></span>
@@ -47,11 +136,12 @@
     </nav>
 
     <section class="hero-carousel" id="inicio" aria-roledescription="carrusel" aria-label="Banners destacados">
+        <h1 class="sr-only">Páginas web profesionales para negocios en Chile</h1>
         <div class="hero-carousel-track">
             <picture class="hero-slide">
                 <source media="(max-width: 480px)" srcset="banner/banner-movil.png">
                 <source media="(max-width: 1024px)" srcset="banner/banner-tablet.png">
-                <img src="banner/banner-pc.png" alt="Imagen principal de WebKrypto" class="hero-image">
+                <img src="banner/banner-pc.png" alt="WebKrypto: páginas web profesionales para tu negocio" class="hero-image" fetchpriority="high">
             </picture>
             <picture class="hero-slide">
                 <source media="(max-width: 480px)" srcset="banner/banner-movil-2.jpg">
@@ -241,6 +331,20 @@
         </div>
     </section>
 
+    <section class="insta" id="instagram" aria-labelledby="instaTitulo" hidden>
+        <h2 class="insta-titulo" id="instaTitulo">Lo último en nuestro Instagram</h2>
+        <p class="insta-sub">Mira nuestras publicaciones más recientes y síguenos para no perderte nada.</p>
+
+        <div class="insta-carrusel" aria-roledescription="carrusel" aria-label="Últimas publicaciones de Instagram">
+            <button type="button" class="insta-flecha insta-flecha-izq" id="instaAnterior" aria-label="Publicación anterior">‹</button>
+            <div class="insta-track" id="instaTrack"></div>
+            <button type="button" class="insta-flecha insta-flecha-der" id="instaSiguiente" aria-label="Publicación siguiente">›</button>
+        </div>
+        <div class="insta-puntos" id="instaPuntos"></div>
+
+        <a href="https://www.instagram.com/web_krypto/" target="_blank" rel="noopener noreferrer" class="insta-btn">Ver más en Instagram →</a>
+    </section>
+
     <footer class="footer" id="contacto">
         <h2 class="footer-titulo">Síguenos en nuestras redes</h2>
         <p class="footer-texto">¿Tienes un problema, una duda o quieres escribirnos directamente? Contáctanos por cualquiera de estos canales.</p>
@@ -255,7 +359,7 @@
                 <span class="footer-contacto-texto">WebKrypto@proton.me</span>
             </a>
         </div>
-        <p class="footer-copy">© 2026 WebKrypto · <a href="privacidad.html" style="color:#cfe9e9;">Privacidad</a> · <a href="terminos.html" style="color:#cfe9e9;">Términos de uso</a></p>
+        <p class="footer-copy">© 2026 WebKrypto · <a href="privacidad.html" style="color:#cfe9e9;">Privacidad</a> · <a href="terminos.html" style="color:#cfe9e9;">Términos de uso</a><button type="button" class="footer-cookies" data-cookies hidden> · Cookies</button></p>
     </footer>
 
     <!-- Botón flotante de contacto -->
@@ -408,6 +512,7 @@
     </div>
 
     <script src="js/vendor/supabase.js"></script>
+    <script src="js/analytics.js" defer></script>
     <script src="js/main.js"></script>
 
 </body>
