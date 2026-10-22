@@ -13,3 +13,11 @@
 /admin.html
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+# Caché de imágenes (1 semana). Solo aplica en Netlify / Cloudflare Pages.
+/banner/*
+  Cache-Control: public, max-age=604800
+/logo/*
+  Cache-Control: public, max-age=604800
+/iconos/*
+  Cache-Control: public, max-age=604800

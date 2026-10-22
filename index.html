@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://melbzzocbenpoewlqvbr.supabase.co https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://melbzzocbenpoewlqvbr.supabase.co wss://melbzzocbenpoewlqvbr.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
@@ -18,6 +18,7 @@
     <meta property="og:title" content="Páginas web profesionales en Chile | WebKrypto">
     <meta property="og:description" content="Convierte visitantes en clientes con una web profesional. Landing pages y sitios con panel propio. Cotiza sin compromiso.">
     <meta property="og:image" content="https://webkrypto.shop/banner/og-image.png">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="WebKrypto: páginas web profesionales para tu negocio">
@@ -28,11 +29,17 @@
     <meta name="twitter:title" content="Páginas web profesionales en Chile | WebKrypto">
     <meta name="twitter:description" content="Convierte visitantes en clientes con una web profesional. Cotiza sin compromiso.">
     <meta name="twitter:image" content="https://webkrypto.shop/banner/og-image.png">
+    <meta name="twitter:image:alt" content="WebKrypto: páginas web profesionales para tu negocio">
 
+    <!-- Precarga del banner principal (es lo más grande que ve el usuario: mejora LCP) -->
+    <link rel="preload" as="image" href="banner/banner-movil.webp" type="image/webp" media="(max-width: 480px)" fetchpriority="high">
+    <link rel="preload" as="image" href="banner/banner-tablet.webp" type="image/webp" media="(min-width: 481px) and (max-width: 1024px)" fetchpriority="high">
+    <link rel="preload" as="image" href="banner/banner-pc.webp" type="image/webp" media="(min-width: 1025px)" fetchpriority="high">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="48x48" href="logo/favicon-48.png">
     <link rel="icon" type="image/png" sizes="192x192" href="logo/favicon-192.png">
     <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
@@ -88,7 +95,8 @@
               "@type": "Service",
               "name": "Landing Page",
               "description": "Página web de una sola sección para presentar tu negocio y conseguir nuevos clientes."
-            }
+            },
+            "url": "https://webkrypto.shop/#servicios"
           },
           {
             "@type": "Offer",
@@ -98,20 +106,140 @@
               "@type": "Service",
               "name": "Página Web Profesional",
               "description": "Web completa con panel de administración propio para gestionar tu contenido."
-            }
+            },
+            "url": "https://webkrypto.shop/#servicios"
           },
           {
             "@type": "Offer",
-            "priceCurrency": "CLP",
-            "price": "5000",
             "itemOffered": {
               "@type": "Service",
               "name": "Mantenimiento web mensual",
               "description": "Cambios de textos, imágenes, colores, productos e información del negocio."
+            },
+            "url": "https://webkrypto.shop/#servicios",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "5000",
+              "priceCurrency": "CLP",
+              "unitText": "MONTH"
             }
           }
         ]
+      },
+      "priceRange": "$5.000 - $49.990 CLP",
+      "knowsLanguage": "es-CL",
+      "sameAs": [
+        "https://www.instagram.com/web_krypto/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "WebKrypto@proton.me",
+        "availableLanguage": "Spanish"
       }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://webkrypto.shop/#faq",
+      "inLanguage": "es-CL",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Una Landing Page sirve para cualquier negocio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, una Landing Page puede adaptarse a distintos tipos de negocios y servicios."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Puedo administrar mi Página Web Profesional yo mismo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, pero el panel de administración está disponible únicamente en el plan Página Web Profesional. Desde ahí podrás gestionar productos, imágenes, publicidad, redes sociales y más. La Landing Page no incluye panel de administración: sus cambios se solicitan a través del plan de Mantenimiento."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Necesito conocimientos técnicos para usar el panel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. El panel está diseñado para que puedas actualizar el contenido de tu web de forma sencilla."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto demora el desarrollo de mi página?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende del tipo de página y de la cantidad de contenido. Una Landing Page sencilla puede estar lista en pocos días, y una web completa generalmente está lista en 3 a 7 días, siempre que recibamos toda la información necesaria."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Mi web funciona en celulares?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Nuestras webs están diseñadas para adaptarse a celulares, tablets y computadores, ofreciendo una buena experiencia en distintos dispositivos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué incluye el mantenimiento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Incluye cambios en imágenes, textos, colores, productos y otros elementos de tu web. En el plan Profesional puedes realizar muchos de estos cambios tú mismo desde el panel de administración."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo contrato el mantenimiento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Escríbenos por DM y te ayudaremos a contratarlo. El pago se realiza mes a mes mediante transferencia bancaria y te avisaremos antes de que termine tu período para que puedas renovarlo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo solicito modificaciones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Envíanos un DM por Instagram con los cambios que necesitas realizar en tu web y te responderemos lo antes posible para coordinarlos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué pasa si mi web tiene un error?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Si tu web presenta un error relacionado con su funcionamiento, lo solucionaremos aunque no tengas contratado un plan de mantenimiento."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo se realiza el pago?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El pago se realiza únicamente mediante transferencia bancaria, una vez que el proyecto está terminado y listo para ser publicado en internet. Así puedes revisar el resultado final antes de pagar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué es el hosting y por qué es importante?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El hosting permite que tu página esté publicada y disponible en internet las 24 horas, almacenando todos sus archivos y contenido. No está incluido en el precio de la web: lo paga el cliente, y nosotros podemos ayudarte a contratarlo y configurarlo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué es el dominio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Es la dirección de tu página web, por ejemplo tunegocio.cl. Le da una imagen más profesional y confiable a tu negocio y permite que tus clientes te encuentren fácilmente. Se paga por separado y su renovación corre por cuenta del cliente."
+          }
+        }
+      ]
     }
   ]
 }
@@ -135,18 +263,25 @@
         </ul>
     </nav>
 
+    <main id="contenido">
     <section class="hero-carousel" id="inicio" aria-roledescription="carrusel" aria-label="Banners destacados">
         <h1 class="sr-only">Páginas web profesionales para negocios en Chile</h1>
         <div class="hero-carousel-track">
             <picture class="hero-slide">
-                <source media="(max-width: 480px)" srcset="banner/banner-movil.png">
-                <source media="(max-width: 1024px)" srcset="banner/banner-tablet.png">
-                <img src="banner/banner-pc.png" alt="WebKrypto: páginas web profesionales para tu negocio" class="hero-image" fetchpriority="high">
+                <source media="(max-width: 480px)" srcset="banner/banner-movil.webp" type="image/webp" width="600" height="220">
+                <source media="(max-width: 1024px)" srcset="banner/banner-tablet.webp" type="image/webp" width="1024" height="450">
+                <source srcset="banner/banner-pc.webp" type="image/webp" width="1920" height="550">
+                <source media="(max-width: 480px)" srcset="banner/banner-movil.png" width="600" height="220">
+                <source media="(max-width: 1024px)" srcset="banner/banner-tablet.png" width="1024" height="450">
+                <img src="banner/banner-pc.png" width="1920" height="550" alt="WebKrypto: páginas web profesionales para tu negocio" class="hero-image" fetchpriority="high" decoding="async">
             </picture>
             <picture class="hero-slide">
-                <source media="(max-width: 480px)" srcset="banner/banner-movil-2.jpg">
-                <source media="(max-width: 1024px)" srcset="banner/banner-tablet-2.jpg">
-                <img src="banner/banner-pc-2.jpg" alt="Responderemos tus dudas por Instagram @web_krypto" class="hero-image">
+                <source media="(max-width: 480px)" srcset="banner/banner-movil-2.webp" type="image/webp" width="600" height="220">
+                <source media="(max-width: 1024px)" srcset="banner/banner-tablet-2.webp" type="image/webp" width="1024" height="450">
+                <source srcset="banner/banner-pc-2.webp" type="image/webp" width="1920" height="550">
+                <source media="(max-width: 480px)" srcset="banner/banner-movil-2.jpg" width="600" height="220">
+                <source media="(max-width: 1024px)" srcset="banner/banner-tablet-2.jpg" width="1024" height="450">
+                <img src="banner/banner-pc-2.jpg" width="1920" height="550" alt="Responderemos tus dudas por Instagram @web_krypto" class="hero-image" loading="lazy" decoding="async">
             </picture>
         </div>
 
@@ -158,25 +293,25 @@
 
     <div class="container">
         <div class="card">
-            <img src="iconos/rocket-lunch.svg" alt="Icono de cohete" class="card-icon" loading="lazy">
+            <img src="iconos/rocket-lunch.svg" alt="" class="card-icon" loading="lazy">
             <h2 class="card-title">Aumenta tus ingresos</h2>
             <p class="card-text">Convierte visitantes en nuevos clientes con una web pensada para vender.</p>
         </div>
 
         <div class="card">
-            <img src="iconos/chart-histogram.svg" alt="Icono de estadistica" class="card-icon" loading="lazy">
+            <img src="iconos/chart-histogram.svg" alt="" class="card-icon" loading="lazy">
             <h2 class="card-title">Haz crecer tu negocio</h2>
             <p class="card-text">Lleva tu negocio a internet y llega a personas que todavía no te conocen.</p>
         </div>
 
         <div class="card">
-            <img src="iconos/user.svg" alt="Icono de usuario" class="card-icon" loading="lazy">
+            <img src="iconos/user.svg" alt="" class="card-icon" loading="lazy">
             <h2 class="card-title">Consigue nuevos clientes</h2>
             <p class="card-text">Una presencia profesional puede ayudarte a generar más consultas y oportunidades.</p>
         </div>
 
         <div class="card">
-            <img src="iconos/whatsapp.svg" alt="Icono de WhatsApp" class="card-icon" loading="lazy">
+            <img src="iconos/whatsapp.svg" alt="" class="card-icon" loading="lazy">
             <h2 class="card-title">Facilita el contacto</h2>
             <p class="card-text">Botones de WhatsApp, formularios y otras formas de contacto para que hablar contigo sea sencillo.</p>
         </div>
@@ -345,6 +480,8 @@
         <a href="https://www.instagram.com/web_krypto/" target="_blank" rel="noopener noreferrer" class="insta-btn">Ver más en Instagram →</a>
     </section>
 
+    </main>
+
     <footer class="footer" id="contacto">
         <h2 class="footer-titulo">Síguenos en nuestras redes</h2>
         <p class="footer-texto">¿Tienes un problema, una duda o quieres escribirnos directamente? Contáctanos por cualquiera de estos canales.</p>
@@ -511,9 +648,9 @@
         </div>
     </div>
 
-    <script src="js/vendor/supabase.js"></script>
+    <script src="js/vendor/supabase.js" defer></script>
     <script src="js/analytics.js" defer></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 
 </body>
 </html>
