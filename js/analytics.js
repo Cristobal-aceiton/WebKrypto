@@ -39,7 +39,7 @@
         var el = e.target.closest ? e.target.closest('a,button') : null;
         if (!el) return;
         var href = el.getAttribute('href') || '';
-        if (el.id === 'btnAbrirForm') window.wkTrack('abrir_formulario');
+        if (el.hasAttribute('data-plan')) window.wkTrack('cotizar_instagram', { plan: el.getAttribute('data-plan') });
         else if (/instagram\.com|ig\.me/.test(href)) window.wkTrack('click_instagram');
         else if (/^mailto:/.test(href)) window.wkTrack('click_correo');
         else if (/wa\.me|whatsapp\.com/.test(href)) window.wkTrack('click_whatsapp');
